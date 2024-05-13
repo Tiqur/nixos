@@ -97,6 +97,8 @@
     home-manager      # /home manager
     bat               # Alternative to cat
     eza               # Alternative to ls
+    neo-cowsay        # Moo
+    obs-studio        # Caught in 4k
   ];
 
 
