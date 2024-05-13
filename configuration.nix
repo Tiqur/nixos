@@ -76,8 +76,8 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-	  vim               # How do I exit?
-	  neovim            # How do I exit ( but neo )?
+    vim               # How do I exit?
+    neovim            # How do I exit ( but neo )?
     ranger            # Terminal based file explorer
     alacritty         # Terminal emulator
     firefox           # Jumped over the lazy dog 
