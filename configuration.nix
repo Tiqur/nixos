@@ -12,15 +12,11 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "ntfs" ]; # Allow mounting of ntfs filesystems
 
   boot.initrd.luks.devices."luks-c5390a9f-b211-4afe-b09c-9fc851a93be1".device = "/dev/disk/by-uuid/c5390a9f-b211-4afe-b09c-9fc851a93be1";
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -79,55 +75,31 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
-  #nixpkgs.overlays = [
-  #  (self: super: {
-  #     PACKAGE_NAME = unstable.PACKAGE_NAME;
-  #  })
-  #];
-
   environment.systemPackages = with pkgs; [
-	neovim
-  	vim 
-	ranger
-	alacritty
-	firefox
-	wofi
-	pipewire
-	vesktop
-	anki
-	wireplumber
-	pavucontrol
-	htop
-	osu-lazer-bin
-	opentabletdriver
-	wlr-randr
-	git
-	obsidian
+	  vim               # How do I exit?
+	  neovim            # How do I exit ( but neo )?
+    ranger            # Terminal based file explorer
+    alacritty         # Terminal emulator
+    firefox           # Jumped over the lazy dog 
+    wofi              # Application launcher
+    pipewire          # Audio
+    vesktop           # Discord but better
+    anki              # Flashcards 
+    wireplumber       # Session / policy manager for pipewire
+    pavucontrol       # Volume control for pipewire
+    htop              # Terminal task manager
+    osu-lazer-bin     # See you next time
+    opentabletdriver  # Tablet driver
+    wlr-randr         # xrander for wayland
+    git               # git
+    gh                # CLI for github 
+    obsidian          # Notes n stuff
+    home-manager      # /home manager
+    bat               # Alternative to cat
+    eza               # Alternative to ls
   ];
 
 
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -147,5 +119,7 @@
 	opentabletdriver.enable = true;
   };
 
-  #nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 }
