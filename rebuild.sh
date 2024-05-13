@@ -10,4 +10,4 @@ sudo nixos-rebuild switch --flake /etc/nixos/#tiqur-nixos
 #git commit -m ""
 #git push -u origin main
 
-cowsay --super "Done!"
+#cowsay --super "Done!"
