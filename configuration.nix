@@ -5,7 +5,8 @@
 { config, pkgs, pkgs-unstable, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -47,11 +48,11 @@
 
   security.rtkit.enable = true;
   services.pipewire = {
-	enable=true;
-	jack.enable = true;
-	alsa.enable = true;
-	alsa.support32Bit = true;
-	pulse.enable = true;
+    enable = true;
+    jack.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   # LOW LATENCY PIPEWIRE SETTINGS FOR OSU
@@ -69,7 +70,7 @@
     isNormalUser = true;
     description = "Tiqur";
     extraGroups = [ "networkmanager" "wheel" "audio" ];
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
   };
 
   # Nix settings
@@ -78,49 +79,52 @@
 
 
   # Packages
-  environment.systemPackages = 
-  (with pkgs-unstable; [
-    # Unstable packages
-    vim               # How do I exit?
-    neovim            # How do I exit ( but neo )?
-    ranger            # Terminal based file explorer
-    alacritty         # Terminal emulator
-    firefox           # Jumped over the lazy dog 
-    wofi              # Application launcher
-    pipewire          # Audio
-    vesktop           # Discord but better
-    anki              # Flashcards 
-    wireplumber       # Session / policy manager for pipewire
-    pavucontrol       # Volume control for pipewire
-    htop              # Terminal task manager
-    opentabletdriver  # Tablet driver
-    wlr-randr         # xrander for wayland
-    git               # git
-    gh                # CLI for github 
-    obsidian          # Notes n stuff
-    home-manager      # /home manager
-    bat               # Alternative to cat
-    eza               # Alternative to ls
-    neo-cowsay        # Moo
-    obs-studio        # Caught in 4k
-    osu-lazer-bin     # See you next time
-  ])
+  environment.systemPackages =
+    (with pkgs-unstable; [
+      # Unstable packages
+      vim # How do I exit?
+      neovim # How do I exit ( but neo )?
+      ranger # Terminal based file explorer
+      alacritty # Terminal emulator
+      wofi # Application launcher
+      pipewire # Audio
+      vesktop # Discord but better
+      anki # Flashcards 
+      wireplumber # Session / policy manager for pipewire
+      pavucontrol # Volume control for pipewire
+      htop # Terminal task manager
+      opentabletdriver # Tablet driver
+      wlr-randr # xrander for wayland
+      git # git
+      gh # CLI for github 
+      obsidian # Notes n stuff
+      home-manager # /home manager
+      bat # Alternative to cat
+      eza # Alternative to ls
+      neo-cowsay # Moo
+      obs-studio # Caught in 4k
+      osu-lazer-bin # See you next time
+      grim # Screenshot utility for sway
+      wl-clipboard # Copy to clipboard
+      slurp
 
-  ++
+    ])
 
-  (with pkgs; [
-    # Stable packages
+    ++
 
-  ]);
+    (with pkgs; [
+      # Stable packages
+      firefox # Jumped over the lazy dog 
+    ]);
 
   programs.hyprland = {
-	enable = true;
-	xwayland.enable = true;
+    enable = true;
+    xwayland.enable = true;
   };
 
   hardware = {
-	opengl.enable = true;
-	opentabletdriver.enable = true;
+    opengl.enable = true;
+    opentabletdriver.enable = true;
   };
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];

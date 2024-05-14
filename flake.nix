@@ -10,38 +10,40 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: 
-  let
-    system = "x86_64-linux";
-    lib = nixpkgs.lib;
-    
-    pkgs = import nixpkgs {
-	system = "x86_64-linux";
-	config = { allowUnfree = true; };
-    };
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      lib = nixpkgs.lib;
 
-    pkgs-unstable = import nixpkgs-unstable {
-	system = "x86_64-linux";
-	config = { allowUnfree = true; };
-    };
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config = { allowUnfree = true; };
+      };
+
+      pkgs-unstable = import nixpkgs-unstable {
+        system = "x86_64-linux";
+        config = { allowUnfree = true; };
+      };
 
 
-    username = "tiqur";
-    name = "Trevor";
-  in {
-    nixosConfigurations = {
-      tiqur-nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
+      username = "tiqur";
+      name = "Trevor";
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      nixosConfigurations = {
+        tiqur-nixos = nixpkgs.lib.nixosSystem {
+          inherit system;
 
-        modules = [ ./configuration.nix ];
+          modules = [ ./configuration.nix ];
 
-	#https://youtu.be/hlytf6Uxf4E?t=225
-	specialArgs = {
-	  inherit username;
-	  inherit name;
-	  inherit pkgs-unstable;
-	};
+          #https://youtu.be/hlytf6Uxf4E?t=225
+          specialArgs = {
+            inherit username;
+            inherit name;
+            inherit pkgs-unstable;
+          };
+        };
       };
     };
-  };
 }
