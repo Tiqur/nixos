@@ -107,6 +107,7 @@
       mpv
       # Stable packages
       pipewire # Audio
+      firefox-devedition
     ])
 
     ++
