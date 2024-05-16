@@ -106,6 +106,7 @@
       slurp
       mpv
       pipewire # Audio
+      firefox
     ])
 
     ++
