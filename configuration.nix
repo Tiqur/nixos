@@ -105,15 +105,14 @@
       wl-clipboard # Copy to clipboard
       slurp
       mpv
-      # Stable packages
       pipewire # Audio
-      firefox-devedition
     ])
 
     ++
 
     (with pkgs; [
-      firefox # Jumped over the lazy dog 
+      # Stable packages
+      #firefox # Jumped over the lazy dog 
     ]);
 
   programs.hyprland = {
