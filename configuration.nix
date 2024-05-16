@@ -106,13 +106,13 @@
       slurp
       mpv
       # Stable packages
-      firefox # Jumped over the lazy dog 
       pipewire # Audio
     ])
 
     ++
 
     (with pkgs; [
+      firefox # Jumped over the lazy dog 
     ]);
 
   programs.hyprland = {
