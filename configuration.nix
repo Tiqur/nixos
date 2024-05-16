@@ -117,6 +117,9 @@
       #firefox # Jumped over the lazy dog 
     ]);
 
+
+  windowManager.i3.enable = true;
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
