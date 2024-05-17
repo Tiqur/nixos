@@ -4,11 +4,13 @@
 
 { config, pkgs, pkgs-unstable, ... }:
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  enviornment.pathsToLink = [ "/libexec" ]
+
+    imports =
+  [
+  # Include the results of the hardware scan.
+  ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -117,8 +119,6 @@
       #firefox # Jumped over the lazy dog 
     ]);
 
-
-  windowManager.i3.enable = true;
 
   programs.hyprland = {
     enable = true;
