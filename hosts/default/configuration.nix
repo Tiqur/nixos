@@ -102,15 +102,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
-    neovim
-    librewolf
-    alacritty
-    ranger
-    wofi
-    vesktop
-    anki-bin
-    git
+#    vim
+#    neovim
+#    librewolf
+#    alacritty
+#    ranger
+#    wofi
+#    vesktop
+#    anki-bin
+#    git
   ];
 
   programs.hyprland = {
