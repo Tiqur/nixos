@@ -1,6 +1,4 @@
-nix fmt
-
-sudo nixos-rebuild switch --flake .#default
+./rebuild.sh
 
 git add .
 git commit -m "$(hostname) $(nixos-rebuild list-generations | grep current | cut -d" " -f1)"
