@@ -89,10 +89,10 @@
   };
 
   home-manager = {
-	extraSpecialArgs = { inherit inputs; };
-	users = {
-		"tiqur" = import ./home.nix;
-	};
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "tiqur" = import ./home.nix;
+    };
   };
 
 
