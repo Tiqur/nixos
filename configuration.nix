@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -83,7 +84,7 @@
     description = "tiqur";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -94,23 +95,23 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-	  vim
-	  neovim
-	  librewolf
-	  alacritty
-	  ranger
-	  wofi
-	  vesktop
-	  anki-bin
-	  git
+    vim
+    neovim
+    librewolf
+    alacritty
+    ranger
+    wofi
+    vesktop
+    anki-bin
+    git
   ];
 
   programs.hyprland = {
-  	enable = true;
-	xwayland.enable = true;
+    enable = true;
+    xwayland.enable = true;
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -11,8 +11,10 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         inputs.home-manager.nixosModules.default
