@@ -30,9 +30,8 @@ vesktop
 anki-bin
 git
 obsidian
-ungoogled-chromium
-surf
 qbittorrent
+openvpn
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
