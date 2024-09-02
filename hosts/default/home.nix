@@ -31,6 +31,7 @@ anki-bin
 git
 obsidian
 ungoogled-chromium
+surf
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
