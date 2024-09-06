@@ -21,7 +21,8 @@
   # environment.
   home.packages = with pkgs; [
 vim
-flameshot
+slurp
+grim
 okular
 neovim
 librewolf
