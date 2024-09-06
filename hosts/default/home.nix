@@ -23,6 +23,7 @@
 vim
 neovim
 librewolf
+docker
 brave
 alacritty
 ranger
