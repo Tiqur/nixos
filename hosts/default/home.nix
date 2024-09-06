@@ -23,7 +23,7 @@
 vim
 neovim
 librewolf
-ungoogled-chromium
+brave
 alacritty
 ranger
 wofi
