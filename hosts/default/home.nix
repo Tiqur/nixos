@@ -23,6 +23,7 @@
 vim
 neovim
 librewolf
+firefox
 alacritty
 ranger
 wofi
