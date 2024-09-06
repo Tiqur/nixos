@@ -21,6 +21,7 @@
   # environment.
   home.packages = with pkgs; [
 vim
+okular
 neovim
 librewolf
 docker
