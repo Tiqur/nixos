@@ -21,8 +21,7 @@
   # environment.
   home.packages = with pkgs; [
 vim
-slurp
-grim
+opentabletdriver
 okular
 neovim
 librewolf
@@ -37,6 +36,7 @@ git
 obsidian
 qbittorrent
 openvpn
+
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
