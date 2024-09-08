@@ -31,6 +31,7 @@ brave
 alacritty
 ranger
 wofi
+discord
 vesktop
 anki-bin
 git
