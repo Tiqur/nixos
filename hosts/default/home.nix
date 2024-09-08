@@ -21,6 +21,7 @@
   # environment.
   home.packages = with pkgs; [
 vim
+blender
 opentabletdriver
 okular
 neovim
