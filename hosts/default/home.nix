@@ -28,7 +28,6 @@ okular
 neovim
 librewolf
 docker
-brave
 alacritty
 ranger
 wofi
