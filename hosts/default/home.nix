@@ -51,6 +51,7 @@
     opentabletdriver
     vscode
     xdg-desktop-portal-wlr
+    fuzzel
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
