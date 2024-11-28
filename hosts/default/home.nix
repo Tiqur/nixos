@@ -44,12 +44,14 @@
     feh
     nixfmt-rfc-style
     xclip
-    jetbrains.rider
-    jetbrains.clion
+    #jetbrains.rider
+    #jetbrains.clion
     osu-lazer-bin
     wlr-randr
     opentabletdriver
     vscode
+    xdg-desktop-portal-wlr
+    fuzzel
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
