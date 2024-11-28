@@ -51,6 +51,7 @@
     opentabletdriver
     vscode
     xdg-desktop-portal-wlr
+    xdg-desktop-portal
     fuzzel
   ];
 
