@@ -53,7 +53,9 @@
     xdg-desktop-portal-wlr
     xdg-desktop-portal
     fuzzel
+    webcord
   ];
+
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
