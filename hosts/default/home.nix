@@ -48,7 +48,7 @@
     jetbrains.clion
     osu-lazer-bin
     wlr-randr
-    opentabletdriver
+    #opentabletdriver
     vscode
     xdg-desktop-portal-wlr
     fuzzel
