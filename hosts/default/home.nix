@@ -52,6 +52,7 @@
     vscode
     xdg-desktop-portal-wlr
     fuzzel
+    steam
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
