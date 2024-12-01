@@ -19,6 +19,13 @@
 
   services.picom.enable = true;
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -52,7 +59,6 @@
     vscode
     xdg-desktop-portal-wlr
     fuzzel
-    steam
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
