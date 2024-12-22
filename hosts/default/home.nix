@@ -48,11 +48,10 @@
     jetbrains.clion
     osu-lazer-bin
     wlr-randr
-    #opentabletdriver
+    opentabletdriver
     vscode
     xdg-desktop-portal-wlr
     fuzzel
-    zed-editor
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
