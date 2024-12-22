@@ -1,5 +1,5 @@
 #sudo nix flake update
-sudo nixos-rebuild switch --upgrade --flake .#default
+sudo nixos-rebuild switch --upgrade --flake .#default --verbose
 
 
 git add .
