@@ -1,0 +1,1 @@
+sudo nix flake update
