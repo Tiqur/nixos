@@ -83,14 +83,14 @@
   };
 
   # Low latency
-  services.pipewire.extraConfig.pipewire."92-low-latency" = {
-    "context.properties" = {
-      "default.clock.rate" = 48000;
-      "default.clock.quantum" = 32;
-      "default.clock.min-quantum" = 32;
-      "default.clock.max-quantum" = 32;
-    };
-  };
+  #services.pipewire.extraConfig.pipewire."92-low-latency" = {
+  #  "context.properties" = {
+  #    "default.clock.rate" = 48000;
+  #    "default.clock.quantum" = 32;
+  #    "default.clock.min-quantum" = 32;
+  #    "default.clock.max-quantum" = 32;
+  #  };
+  #};
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
