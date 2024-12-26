@@ -36,6 +36,7 @@
     discord
     vesktop
     anki-bin
+    xorg.libxshmfence
     git
     obsidian
     qbittorrent
