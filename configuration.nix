@@ -101,6 +101,7 @@
     	neovim
 	alacritty
 	firefox
+  fastfetch
 	obsidian
 	vesktop
 	discord

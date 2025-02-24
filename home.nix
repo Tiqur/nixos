@@ -274,7 +274,7 @@ settings = {
   window = {
     title = "Terminal";
 
-    padding = { y = 5; x=5; };
+    padding = { y = 16; x=16; };
     dimensions = {
       lines = 75;
       columns = 100;
@@ -488,7 +488,7 @@ settings = {
 
           bind = [
             # General
-            "$mod, return, exec, $terminal"
+            "$mod, return, exec, $terminal -e bash -c \"fastfetch; exec bash\""
             "$mod SHIFT, q, killactive"
             "$mod SHIFT, e, exit"
             "$mod SHIFT, l, exec, ${pkgs.hyprlock}/bin/hyprlock"
