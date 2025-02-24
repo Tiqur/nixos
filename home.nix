@@ -368,11 +368,11 @@ settings = {
       splash_offset = 2.0;
 
       preload =
-        [ "/home/tiqur/mysystem/wallpapers/wave_dark.png"];
+        [ "/home/tiqur/mysystem/wallpapers/wave.png"];
 
       wallpaper = [
-        "DP-3,/home/tiqur/mysystem/wallpapers/wave_dark.png"
-        "DP-1,/home/tiqur/mysystem/wallpapers/wave_dark.png"
+        "DP-3,/home/tiqur/mysystem/wallpapers/wave.png"
+        "DP-1,/home/tiqur/mysystem/wallpapers/wave.png"
       ];
     };
   };
