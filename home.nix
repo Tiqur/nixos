@@ -15,6 +15,28 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        terminal = "${pkgs.alacritty}/bin/alacritty";
+        layer = "overlay";
+        prompt = ">>  ";
+      };
+
+      colors.background="2E3440E6";
+      colors.text="D8DEE9ff";
+      colors.selection="4C566AE6";
+      colors.selection-text="ECEFF4ff";
+      colors.border="88c0d0E6";
+      colors.match="88C0D0E6";
+      colors.selection-match="81A1C1E6";
+
+      border.radius = 20;
+      border.width = 2;
+    };
+  };
+
   programs.waybar = {
 	enable = true;
 	settings = {
@@ -30,22 +52,14 @@
     modules-center = [ "mpris" "clock#time" ];
     modules-right = [ "pulseaudio" "bluetooth" "custom/wifi" "custom/notification" ];
 
-    "hyprland/workspaces" = {
-      disable-scroll = true;
-      active-only = false;
-      all-outputs = true;
-      warp-on-scroll = false;
-      format = "{icon}";
-      format-icons = {
-        "1" = "<span color='#7e7eaa'>◆</span>";
-        "2" = "<span color='#668fa0'>◆</span>";
-        "3" = "<span color='#7f80aa'>◆</span>";
-        default = "<span color='#7e7eaa'>◆</span>";
-      };
-      persistent-workspaces = {
-        "*" = 1;
-      };
+  "hyprland/workspaces" = {
+    disable-scroll = true;
+    all-outputs = false;
+    format = "{icon}";
+    format-icons = {
+      default = "";
     };
+  };
 
     "hyprland/window" = {
       format = "{class}";
@@ -53,8 +67,6 @@
       rewrite = {
         "" = "<span foreground='#458588'></span> hyprland";
         "~" = " terminal";
-        "com.mitchellh.ghostty" = ">> ghostty";
-        "zen-beta" = ">> zen";
       };
     };
 
@@ -133,7 +145,6 @@
 
 	};
 	style = ''
-@define-color blue #ffffff;
 @define-color blue #88c0d0;
 @define-color purple #b48ead;
 
@@ -155,6 +166,7 @@
 }
 
 window#waybar>* {
+  /*background: #3b4252;*/
   margin-top: 10px;
 }
 
@@ -206,18 +218,17 @@ window#waybar>*>* {
 }
 
 #workspaces button {
-  min-width: 30px;
-  padding: 0 4px;
-  border-radius:13px;
+ color: red;
 }
 
-#workspaces button {
-  border: 2px solid @blue;
-  border-radius: 13px;
+#workspaces button.empty {
+  color: red;
 }
-
+#workspaces button.visible {
+  color: blue;
+}
 #workspaces button.active {
-  border: 2px solid @purple;
+  color: green;
 }
 
 #workspaces button.urgent {
@@ -384,7 +395,8 @@ settings = {
             border_size = 2;
             layout = "dwindle";
             allow_tearing = false;
-	    #col.active_border = "#88c0d0";
+	          "col.active_border" = "rgba(88c0d0ee)";
+	          "col.inactive_border" = "rgba(3b4252ee)";
           };
 
           input = {

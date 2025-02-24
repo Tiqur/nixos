@@ -47,6 +47,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  programs.hyprlock.enable = true;
 
 
   # Enable the LXQT Desktop Environment.
