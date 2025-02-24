@@ -15,6 +15,13 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+    '';
+  };
+
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -488,7 +495,7 @@ settings = {
 
           bind = [
             # General
-            "$mod, return, exec, $terminal -e bash -c \"fastfetch; exec bash\""
+            "$mod, return, exec, $terminal -e fish -c \"fastfetch; exec fish\""
             "$mod SHIFT, q, killactive"
             "$mod SHIFT, e, exit"
             "$mod SHIFT, l, exec, ${pkgs.hyprlock}/bin/hyprlock"
