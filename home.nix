@@ -15,6 +15,28 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+programs.firefox = {
+      enable = true;
+      profiles.default = {
+         name = "Default";
+         isDefault = true;
+         settings = {
+         };
+         # https://cascadefox.github.io/
+         userChrome = ''
+          '';
+         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+            ublock-origin
+            bitwarden
+            darkreader
+            vimium
+            youtube-shorts-block
+            sponsorblock
+          ];
+      };
+   };
+
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -420,7 +442,7 @@ settings = {
             rounding = 8;
             active_opacity = 0.9;
             inactive_opacity = 0.8;
-            fullscreen_opacity = 0.9;
+            fullscreen_opacity = 1.0;
 
             blur = {
               enabled = true;
@@ -617,6 +639,7 @@ settings = {
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    inputs.zen-browser.packages."${pkgs.system}".twilight
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

@@ -49,6 +49,9 @@
   services.xserver.enable = true;
   programs.hyprlock.enable = true;
 
+  #services.xserver.displayManager.autoLogin.enable = true;
+  #services.xserver.displayManager.autoLogin.user = "tiqur";
+
 
   # Enable the LXQT Desktop Environment.
   #services.xserver.displayManager.lightdm.enable = true;
