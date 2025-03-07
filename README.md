@@ -1,3 +1,5 @@
+### File structure:
+```
 .
 ├── flake.lock
 ├── flake.nix
@@ -30,3 +32,4 @@
     └── wave.png
 
 6 directories, 24 files
+```
