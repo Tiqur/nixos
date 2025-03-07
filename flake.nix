@@ -27,13 +27,21 @@
     };
   };
 
-  outputs = { self, nixpkgs, hyprland, hy3, ... }@inputs: {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./hosts/desktop/configuration.nix
-        ./hosts/shared.nix
-      ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      hyprland,
+      hy3,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/desktop/configuration.nix
+          ./hosts/shared.nix
+        ];
+      };
     };
-  };
 }

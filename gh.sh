@@ -1,9 +1,15 @@
-readme_contents="### File structure:"  # Initialize variable
-readme_contents+="\n\`\`\`"  # Add opening triple backticks
-readme_contents+="\n$(tree .)"  # Append the output of `tree .`
-readme_contents+="\n\`\`\`"  # Add closing triple backticks
-echo -e "$readme_contents" > README.md  # Write to file with newline interpretation
+# Write file-structure to README.md
+readme_contents="### File structure:"
+readme_contents+="\n\`\`\`"
+readme_contents+="\n$(tree .)"
+readme_contents+="\n\`\`\`"
+echo -e "$readme_contents" > README.md
 
+# Format files
+find . -type f -name "*.nix" -exec nixfmt {} \;
+
+
+# Add to git repo and push
 git add .
 git checkout -b main
 git commit -m "$(hostname) $(nixos-rebuild list-generations | grep current | cut -d" " -f1)"

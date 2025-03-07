@@ -1,11 +1,15 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -42,7 +46,6 @@
   #services.xserver.displayManager.autoLogin.enable = true;
   #services.xserver.displayManager.autoLogin.user = "tiqur";
 
-
   # Enable the LXQT Desktop Environment.
   #services.xserver.displayManager.lightdm.enable = true;
   #services.xserver.desktopManager.lxqt.enable = true;
@@ -65,41 +68,46 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     extraConfig.pipewire.adjust-sample-rate = {
-        "context.properties" = {
-          "default.clock.rate" = 192000;
-          "default.allowed-rates" = [ 44100 48000 192000 ];
-        };
+      "context.properties" = {
+        "default.clock.rate" = 192000;
+        "default.allowed-rates" = [
+          44100
+          48000
+          192000
+        ];
+      };
     };
   };
-
 
   users.users.tiqur = {
     isNormalUser = true;
     description = "Tiqur";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
-    	neovim
-	alacritty
-	firefox
-  fastfetch
-	obsidian
-	vesktop
-	discord
-	htop
-	wofi
-	unzip
-	steam
-    	anki
-	swappy
-	grim
-	waybar
-	kitty
-	home-manager
+      neovim
+      alacritty
+      firefox
+      fastfetch
+      obsidian
+      vesktop
+      discord
+      htop
+      wofi
+      unzip
+      steam
+      anki
+      swappy
+      grim
+      waybar
+      kitty
+      home-manager
     ];
   };
 
   programs.firefox.enable = true;
-
 
   home-manager = {
     extraSpecialArgs = {
@@ -111,14 +119,16 @@
   };
 
   fonts.packages = [
-   pkgs.nerd-fonts._0xproto
-   pkgs.nerd-fonts.droid-sans-mono
+    pkgs.nerd-fonts._0xproto
+    pkgs.nerd-fonts.droid-sans-mono
   ];
-
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   environment.systemPackages = with pkgs; [
 
