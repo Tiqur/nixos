@@ -19,6 +19,7 @@
 ├── rebuild_laptop.sh
 ├── rebuild.sh
 └── wallpapers
+    ├── cat_juzo.png
     ├── catppuccin_triangle.png
     ├── city.jpg
     ├── japan.png
@@ -35,5 +36,5 @@
     ├── wave_dark.png
     └── wave.png
 
-6 directories, 28 files
+6 directories, 29 files
 ```
