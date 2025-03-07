@@ -10,6 +10,7 @@
 │   │   ├── hardware-configuration.nix
 │   │   └── home.nix
 │   ├── laptop
+│   │   └── wifi.nix
 │   └── shared.nix
 ├── nixosModules
 ├── README.md
@@ -31,5 +32,5 @@
     ├── wave_dark.png
     └── wave.png
 
-6 directories, 24 files
+6 directories, 25 files
 ```
