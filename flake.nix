@@ -40,13 +40,15 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/desktop/configuration.nix
+          ./hosts/desktop/hardware-configuration.nix
           ./hosts/shared.nix
         ];
       };
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/laptop/configuration.nix
+          ./hosts/desktop/configuration.nix
+          ./hosts/laptop/hardware-configuration.nix
           ./hosts/shared.nix
         ];
       };
