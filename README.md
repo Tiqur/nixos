@@ -10,10 +10,11 @@
 │   │   ├── hardware-configuration.nix
 │   │   └── home.nix
 │   ├── laptop
+│   │   ├── hardware-configuration.nix
 │   │   └── wifi.nix
 │   └── shared.nix
-├── nixosModules
 ├── README.md
+├── rebuild_laptop.sh
 ├── rebuild.sh
 └── wallpapers
     ├── catppuccin_triangle.png
@@ -32,5 +33,5 @@
     ├── wave_dark.png
     └── wave.png
 
-6 directories, 25 files
+5 directories, 27 files
 ```

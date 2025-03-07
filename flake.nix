@@ -49,6 +49,7 @@
         modules = [
           ./hosts/desktop/configuration.nix
           ./hosts/laptop/hardware-configuration.nix
+          ./hosts/laptop/wifi.nix
           ./hosts/shared.nix
         ];
       };
