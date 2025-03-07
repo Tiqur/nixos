@@ -14,6 +14,7 @@
 │   │   ├── tlp.nix
 │   │   └── wifi.nix
 │   └── shared.nix
+├── nixosModules
 ├── README.md
 ├── rebuild_laptop.sh
 ├── rebuild.sh
@@ -34,5 +35,5 @@
     ├── wave_dark.png
     └── wave.png
 
-5 directories, 28 files
+6 directories, 28 files
 ```

@@ -81,19 +81,15 @@
         margin-bottom = -45;
 
         modules-left = [
-          "custom/wofi"
           "hyprland/workspaces"
           "hyprland/window"
         ];
         modules-center = [
-          "mpris"
           "clock#time"
         ];
         modules-right = [
-          "pulseaudio"
-          "bluetooth"
-          "custom/wifi"
-          "custom/notification"
+          "pipewire"
+          "network"
         ];
 
         "hyprland/workspaces" = {
@@ -105,24 +101,7 @@
           };
         };
 
-        "hyprland/window" = {
-          format = "{class}";
-          max-length = 20;
-          rewrite = {
-            "" = "<span foreground='#458588'></span> hyprland";
-            "~" = " terminal";
-          };
-        };
-
-        "pulseaudio" = {
-          format = "<span color='#fbf1c7'></span>{volume}%";
-          format-muted = "<span color='#fbf1c7'></span>{volume}%";
-          format-bluetooth = "<span color='#fbf1c7'></span>{volume}%";
-          format-bluetooth-muted = "<span color='#fbf1c7'></span>{volume}%";
-          format-source = "{volume}%";
-          on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          tooltip = false;
-          max-volume = 130;
+        "pipewire" = {
         };
 
         "clock#time" = {
@@ -132,60 +111,12 @@
           max-length = 30;
         };
 
-        "mpris" = {
-          format = "<span color='#cc241d'></span> {artist} - {title} ";
-          max-length = 40;
-        };
-
-        "custom/wifi" = {
-          return-type = "json";
-          format = "ᯤ";
-          tooltip = true;
-          on-click = "nm-connection-editor";
-          interval = 1;
-          min-length = 1;
-          max-length = 12;
-        };
-
-        "bluetooth" = {
-          format = "<span></span>";
-          format-disabled = "<span></span>";
-          format-connected = "<span></span>";
-          format-connected-battery = "<span> low</span>";
-          tooltip-format = "{num_connections} connected";
-          tooltip-format-disabled = "Bluetooth Disabled";
-          tooltip-format-connected = "{num_connections} connected\n{device_enumerate}";
-          tooltip-format-enumerate-connected = "{device_alias}";
-          tooltip-format-enumerate-connected-battery = "{device_alias}: {device_battery_percentage}%";
-          on-click = "blueman-manager";
-          interval = 1;
-          min-length = 1;
-          max-length = 10;
-        };
-
-        "custom/notification" = {
-          tooltip = false;
-          rotate = 0;
-          format = "{icon}";
-          format-icons = {
-            notification = "󰅸 ";
-            none = "󰂜 ";
-            dnd-notification = "󰅸 ";
-            dnd-none = "󱏨 ";
-            inhibited-notification = "󰅸 ";
-            inhibited-none = "󰂜 ";
-            dnd-inhibited-notification = "󰅸 ";
-            dnd-inhibited-none = "󱏨 ";
-          };
-          return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click-right = "swaync-client -d -sw";
-          on-click = "swaync-client -t -sw";
-          escape = true;
+        "network" = {
+          format-wifi = "Wireless";
+          format-ethernet = "Wired";
+          format-disconnected = "Disconnected";
         };
       };
-
     };
     style = ''
       @define-color blue #88c0d0;
@@ -208,16 +139,6 @@
         background: transparent;
       }
 
-      window#waybar>* {
-        /*background: #3b4252;*/
-        margin-top: 10px;
-      }
-
-      window#waybar>*>* {
-        /*background: red;*/
-      }
-
-      /* Outer horizontal padding */
       .modules-left {
         padding-left: 80px;
       }
@@ -225,85 +146,14 @@
         padding-right: 80px;
       }
 
-      /* Inner element padding */
-      .modules-left>*>*>* {
-        margin-right: 1rem;
-      }
-      .modules-right>*>* {
-        margin-left: 1rem;
+      window#waybar>* {
+        margin-top: 10px;
       }
 
-
-      .modules-center {
-      }
-
-      #custom-wofi,
-      #workspaces button,
-      #workspaces button:hover,
-      #workspaces button.visible,
-      #workspaces button.visible:hover,
-      #workspaces button.active,
-      #workspaces button.active:hover,
-      #workspaces button.urgent,
-      #window,
-      #pulseaudio,
-      #pulseaudio.muted,
-      #clock {
-      }
-
-      #window,
-      #pulseaudio,
-      #pulseaudio.muted,
-      #clock {
-      }
-
-      #workspaces {
-      }
-
-      #workspaces button {
-       color: red;
-      }
-
-      #workspaces button.empty {
-        color: red;
-      }
-      #workspaces button.visible {
-        color: blue;
-      }
-      #workspaces button.active {
-        color: green;
-      }
-
-      #workspaces button.urgent {
-        /*border: 2px solid #ffffff;*/
-      }
-
-
-      #window {
-        padding: 5px 30px 7px;
-      }
-
-
-      #pulseaudio {
-      }
-
-      #pulseaudio.muted {
-      }
-
-
-      #clock.time {
-      }
-
-      #mpris {
-      }
-
-      #custom-notification {
-      }
-
-      #bluetooh {
-      }
-
-      #bluetooth,#custom-wifi {
+      .module {
+        background-color: #282a36;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
     '';
   };
