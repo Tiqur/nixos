@@ -50,6 +50,7 @@
           ./hosts/desktop/configuration.nix
           ./hosts/laptop/hardware-configuration.nix
           ./hosts/laptop/wifi.nix
+          ./hosts/laptop/tlp.nix
           ./hosts/shared.nix
         ];
       };
