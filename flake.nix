@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    impermanence.url = "github:nix-community/impermanence";
 
     #https://github.com/0xc000022070/zen-browser-flake
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -33,6 +34,7 @@
       nixpkgs,
       hyprland,
       hy3,
+      impermanence,
       ...
     }@inputs:
     {
@@ -52,6 +54,14 @@
           ./hosts/laptop/wifi.nix
           ./hosts/laptop/tlp.nix
           ./hosts/shared.nix
+        ];
+      };
+      nixosConfigurations.server = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          impermanence.nixosModules.impermanence
+          ./hosts/server/configuration.nix
+          ./hosts/server/hardware-configuration.nix
         ];
       };
     };
