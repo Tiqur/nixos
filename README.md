@@ -13,12 +13,14 @@
 │   │   ├── hardware-configuration.nix
 │   │   ├── tlp.nix
 │   │   └── wifi.nix
+│   ├── server
 │   └── shared.nix
 ├── nixosModules
 ├── README.md
 ├── rebuild_laptop.sh
 ├── rebuild.sh
 └── wallpapers
+    ├── angel.jpg
     ├── cat_juzo.png
     ├── catppuccin_triangle.png
     ├── city.jpg
@@ -36,5 +38,5 @@
     ├── wave_dark.png
     └── wave.png
 
-6 directories, 29 files
+7 directories, 30 files
 ```

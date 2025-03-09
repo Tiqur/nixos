@@ -40,7 +40,10 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  programs.hyprlock.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.xserver.displayManager.sddm.theme = "where_is_my_sddm_theme";
+  #programs.hyprlock.enable = true;
 
   #services.xserver.displayManager.autoLogin.enable = true;
   #services.xserver.displayManager.autoLogin.user = "tiqur";
@@ -86,6 +89,8 @@
       "wheel"
     ];
     packages = with pkgs; [
+      osu-lazer-bin
+      opentabletdriver
       neovim
       alacritty
       firefox
