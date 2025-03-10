@@ -17,7 +17,6 @@
 │   └── shared.nix
 ├── nixosModules
 ├── README.md
-├── rebuild_laptop.sh
 ├── rebuild.sh
 └── wallpapers
     ├── angel.jpg
@@ -38,5 +37,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 30 files
+7 directories, 29 files
 ```
