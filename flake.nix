@@ -62,6 +62,7 @@
           impermanence.nixosModules.impermanence
           ./hosts/server/configuration.nix
           ./hosts/server/hardware-configuration.nix
+          ./hosts/shared.nix
         ];
       };
     };

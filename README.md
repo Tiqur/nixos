@@ -14,8 +14,9 @@
 │   │   ├── tlp.nix
 │   │   └── wifi.nix
 │   ├── server
+│   │   ├── configuration.nix
+│   │   └── hardware-configuration.nix
 │   └── shared.nix
-├── nixosModules
 ├── README.md
 ├── rebuild.sh
 └── wallpapers
@@ -37,5 +38,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 29 files
+6 directories, 31 files
 ```
