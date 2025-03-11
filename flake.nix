@@ -49,7 +49,7 @@
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/desktop/configuration.nix
+          ./hosts/laptop/configuration.nix
           ./hosts/laptop/hardware-configuration.nix
           ./hosts/laptop/wifi.nix
           ./hosts/laptop/tlp.nix
