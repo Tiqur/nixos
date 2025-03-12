@@ -71,6 +71,7 @@
     enable = true;
     package = pkgs.immich;
     openFirewall = true;
+    port = 3001;
   };
 
   services.tailscale.enable = true;
