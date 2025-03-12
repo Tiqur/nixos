@@ -69,17 +69,11 @@
 
   services.immich = {
     enable = true;
-    package = pkgs.immich;
+    host = "0.0.0.0";
     openFirewall = true;
-    port = 3001;
-
-    redis = {
-      enable = true;
-      host = "127.0.0.1";
-      port = 6379;
-    };
+    mediaLocation = "/home/tiqur/immich_data";
   };
-  services.tailscale.enable = true;
+  #services.tailscale.enable = true;
 
   nix.gc.automatic = true;
 
@@ -122,7 +116,6 @@
     22
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
