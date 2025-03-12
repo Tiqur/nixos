@@ -79,14 +79,21 @@
     htop
   ];
 
+  services.fail2ban = {
+    enable = true;
+    maxretry = 10;
+    bantime-increment.enable = true;
+    ignoreIP = [ "192.168.1.235" ];
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
-      MaxAuthTries = 3;
-      AllowUsers = "tiqur";
+      AllowUsers = [ "tiqur" ];
+      LogLevel = "VERBOSE";
     };
   };
 
