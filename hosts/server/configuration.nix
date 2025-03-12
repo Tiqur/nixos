@@ -12,6 +12,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable support for RAID arrays
+  boot.swraid.enable = true;
+
   # Hostname
   networking.hostName = "rikka";
 
