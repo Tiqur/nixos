@@ -56,6 +56,12 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "tiqur";
 
+  services.scrutiny = {
+    enable = true;
+    openFirewall = true;
+    settings.web.listen.port = 8080;
+  };
+
   services.cockpit = {
     enable = true;
     openFirewall = true;
@@ -63,7 +69,7 @@
 
   services.immich = {
     enable = true;
-    port = 2283;
+    package = pkgs.immich;
     openFirewall = true;
   };
 
@@ -108,7 +114,6 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22
-    2283
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
