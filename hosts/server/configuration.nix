@@ -72,8 +72,13 @@
     package = pkgs.immich;
     openFirewall = true;
     port = 3001;
-  };
 
+    redis = {
+      enable = true;
+      host = "127.0.0.1";
+      port = 6379;
+    };
+  };
   services.tailscale.enable = true;
 
   nix.gc.automatic = true;
