@@ -24,6 +24,12 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # Scrub (self-heal) btrfs filesystems
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+  };
+
   # Percistent Logging
   services.journald.extraConfig = "Storage=persistent";
 
