@@ -8,9 +8,13 @@
 
   # Consider automatic upgrades (for security)
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # Enable support for RAID arrays
   boot.swraid.enable = true;
@@ -101,8 +105,31 @@
     ignoreIP = [ "192.168.1.235" ];
   };
 
+  # age.secrets.restic-hetzner.file = ../../secrets/restic-hetzner.age;
+  # age.secrets.restic-hetzner-password.file = ../../secrets/restic-hetzner-password.age;
+
+  # services.restic.backups = {
+  #   remotebackup = {
+  #     initialize = true;
+  #     paths = [ # what to backup
+  #       "/persistent"
+  #     ];
+  #     passwordFile = config.age.secrets.restic-hetzner-password.path; # encryption
+  #     repository = "sftp://<boxname>-<subN>@<boxname>.your-storagebox.de/"; @ where to store it
+  #
+  #     extraOptions = [
+  #       # how to connect
+  #       "sftp.command='${pkgs.sshpass}/bin/sshpass -f ${config.age.secrets.restic-hetzner.path} -- ssh -4 u419690.your-storagebox.de -l u419690-sub1 -s sftp'"
+  #     ];
+  #     timerConfig = { # when to backup
+  #       OnCalendar = "00:05";
+  #       RandomizedDelaySec = "5h";
+  #     };
+  #   };
+
   # Enable the OpenSSH daemon.
   services.openssh = {
+    forwardX11 = true;
     enable = true;
     settings = {
       PasswordAuthentication = false;
