@@ -164,11 +164,9 @@
 
   programs.alacritty = {
     enable = true;
-
     settings = {
       window = {
         title = "Terminal";
-
         padding = {
           y = 16;
           x = 16;
@@ -185,67 +183,81 @@
       };
 
       #background_opacity = 0.3;
-
       #shell = { program = "${pkgs.zsh}/bin/zsh"; };
 
       colors = {
         primary = {
-          background = "#2e3440";
-          foreground = "#d8dee9";
-          dim_foreground = "#a5abb6";
+          background = "#1e1e2e";
+          foreground = "#cdd6f4";
+          dim_foreground = "#7f849c";
+          bright_foreground = "#cdd6f4";
         };
         cursor = {
-          text = "#2e3440";
-          cursor = "#d8dee9";
+          text = "#1e1e2e";
+          cursor = "#f5e0dc";
         };
         vi_mode_cursor = {
-          text = "#2e3440";
-          cursor = "#d8dee9";
+          text = "#1e1e2e";
+          cursor = "#b4befe";
         };
         selection = {
-          text = "CellForeground";
-          background = "#4c566a";
+          text = "#1e1e2e";
+          background = "#f5e0dc";
         };
         search = {
           matches = {
-            foreground = "CellBackground";
-            background = "#88c0d0";
+            foreground = "#1e1e2e";
+            background = "#a6adc8";
           };
-          #bar = {
-          #  background = "#434c5e";
-          #  foreground = "#d8dee9";
-          #};
+          focused_match = {
+            foreground = "#1e1e2e";
+            background = "#a6e3a1";
+          };
+        };
+        footer_bar = {
+          foreground = "#1e1e2e";
+          background = "#a6adc8";
+        };
+        hints = {
+          start = {
+            foreground = "#1e1e2e";
+            background = "#f9e2af";
+          };
+          end = {
+            foreground = "#1e1e2e";
+            background = "#a6adc8";
+          };
         };
         normal = {
-          black = "#3b4252";
-          red = "#bf616a";
-          green = "#a3be8c";
-          yellow = "#ebcb8b";
-          blue = "#81a1c1";
-          magenta = "#b48ead";
-          cyan = "#88c0d0";
-          white = "#e5e9f0";
+          black = "#45475a";
+          red = "#f38ba8";
+          green = "#a6e3a1";
+          yellow = "#f9e2af";
+          blue = "#89b4fa";
+          magenta = "#f5c2e7";
+          cyan = "#94e2d5";
+          white = "#bac2de";
         };
         bright = {
-          black = "#4c566a";
-          red = "#bf616a";
-          green = "#a3be8c";
-          yellow = "#ebcb8b";
-          blue = "#81a1c1";
-          magenta = "#b48ead";
-          cyan = "#8fbcbb";
-          white = "#eceff4";
+          black = "#585b70";
+          red = "#f38ba8";
+          green = "#a6e3a1";
+          yellow = "#f9e2af";
+          blue = "#89b4fa";
+          magenta = "#f5c2e7";
+          cyan = "#94e2d5";
+          white = "#a6adc8";
         };
-        dim = {
-          black = "#373e4d";
-          red = "#94545d";
-          green = "#809575";
-          yellow = "#b29e75";
-          blue = "#68809a";
-          magenta = "#8c738c";
-          cyan = "#6d96a5";
-          white = "#aeb3bb";
-        };
+        indexed_colors = [
+          {
+            index = 16;
+            color = "#fab387";
+          }
+          {
+            index = 17;
+            color = "#f5e0dc";
+          }
+        ];
       };
     };
   };
@@ -257,11 +269,11 @@
       splash = false;
       splash_offset = 2.0;
 
-      preload = [ "/home/tiqur/mysystem/wallpapers/angel.jpg" ];
+      preload = [ "/home/tiqur/mysystem/wallpapers/cat_juzo.png" ];
 
       wallpaper = [
-        "DP-3,/home/tiqur/mysystem/wallpapers/angel.jpg"
-        "DP-1,/home/tiqur/mysystem/wallpapers/angel.jpg"
+        "DP-3,/home/tiqur/mysystem/wallpapers/cat_juzo.png"
+        "DP-1,/home/tiqur/mysystem/wallpapers/cat_juzo.png"
       ];
     };
   };

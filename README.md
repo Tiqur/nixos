@@ -19,6 +19,7 @@
 │   │   ├── configuration.nix
 │   │   └── hardware-configuration.nix
 │   └── shared.nix
+├── nixosModules
 ├── README.md
 ├── rebuild.sh
 └── wallpapers
@@ -40,5 +41,5 @@
     ├── wave_dark.png
     └── wave.png
 
-6 directories, 33 files
+7 directories, 33 files
 ```
