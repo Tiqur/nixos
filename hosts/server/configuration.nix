@@ -39,6 +39,23 @@
     interval = "weekly";
   };
 
+  # Automatically snapshot raid array to seperate drive
+  services.snapper = {
+    snapshotInterval = "hourly";
+    persistentTimer = true;
+    configs.tank = {
+      SUBVOLUME = "/storage/tank/@home_data";
+      FSTYPE = "btrfs";
+      TIMELINE_LIMIT_HOURLY = 3;
+      TIMELINE_LIMIT_DAILY = 7;
+      TIMELINE_LIMIT_WEEKLY = 4;
+      TIMELINE_LIMIT_MONTHLY = 3;
+      TIMELINE_LIMIT_YEARLY = 1;
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+    };
+  };
+
   # Percistent Logging
   services.journald.extraConfig = "Storage=persistent";
 
@@ -100,8 +117,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    neovim
     git
     htop
+    screen
   ];
 
   services.fail2ban = {
