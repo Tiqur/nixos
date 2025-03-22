@@ -11,6 +11,11 @@
   # Docker
   virtualisation.docker.enable = true;
 
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -59,7 +64,8 @@
     ];
     packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9f24H+33riGpiXIgGWX3hOWOT/Q7oS6TwJRdXonhmT tiqur@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9f24H+33riGpiXIgGWX3hOWOT/Q7oS6TwJRdXonhmT tiqur@nixos" # Desktop
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECv7n8RK9THvNKXHZDcv/Q14MlWh4UyCoRy4/SwhciZ tiqur@nixos" # Laptop
     ];
   };
 
@@ -136,6 +142,22 @@
       PermitRootLogin = "no";
       AllowUsers = [ "tiqur" ];
       LogLevel = "VERBOSE";
+    };
+  };
+
+  systemd.services.main-python-service = {
+    enable = true;
+    description = "My Python App Service";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.nix}/bin/nix run .";
+      Restart = "always";
+      User = "tiqur";
+      WorkingDirectory = "/home/tiqur/osu-score-history";
+      StandardOutput = "journal";
+      StandardError = "journal";
+      RestartSec = "10s";
     };
   };
 
