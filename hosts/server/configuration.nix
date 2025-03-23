@@ -28,6 +28,11 @@
   # Docker
   virtualisation.docker.enable = true;
 
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -49,6 +54,24 @@
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";
+  };
+
+  # Automatically snapshot raid array to seperate drive
+  services.snapper = {
+    snapshotInterval = "hourly";
+    cleanupInterval = "12h";
+    persistentTimer = true;
+    configs.tank = {
+      SUBVOLUME = "/storage/tank/@home_data";
+      FSTYPE = "btrfs";
+      TIMELINE_LIMIT_HOURLY = 4;
+      TIMELINE_LIMIT_DAILY = 7;
+      TIMELINE_LIMIT_WEEKLY = 4;
+      TIMELINE_LIMIT_MONTHLY = 3;
+      TIMELINE_LIMIT_YEARLY = 1;
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+    };
   };
 
   # Percistent Logging
@@ -76,7 +99,8 @@
     ];
     packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9f24H+33riGpiXIgGWX3hOWOT/Q7oS6TwJRdXonhmT tiqur@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9f24H+33riGpiXIgGWX3hOWOT/Q7oS6TwJRdXonhmT tiqur@nixos" # Desktop
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECv7n8RK9THvNKXHZDcv/Q14MlWh4UyCoRy4/SwhciZ tiqur@nixos" # Laptop
     ];
   };
 
@@ -104,6 +128,12 @@
   services.cockpit = {
     enable = true;
     openFirewall = true;
+    settings = {
+      WebService = {
+        LoginTo = false;
+        AllowUnencrypted = true;
+      };
+    };
   };
 
   services.immich = {
@@ -123,9 +153,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    neovim
     git
     htop
     sops
+    screen
   ];
 
   services.fail2ban = {
@@ -166,6 +198,22 @@
       PermitRootLogin = "no";
       AllowUsers = [ "tiqur" ];
       LogLevel = "VERBOSE";
+    };
+  };
+
+  systemd.services.main-python-service = {
+    enable = true;
+    description = "My Python App Service";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.nix}/bin/nix run .";
+      Restart = "always";
+      User = "tiqur";
+      WorkingDirectory = "/home/tiqur/osu-score-history";
+      StandardOutput = "journal";
+      StandardError = "journal";
+      RestartSec = "10s";
     };
   };
 
