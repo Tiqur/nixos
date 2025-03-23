@@ -42,11 +42,12 @@
   # Automatically snapshot raid array to seperate drive
   services.snapper = {
     snapshotInterval = "hourly";
+    cleanupInterval = "12h";
     persistentTimer = true;
     configs.tank = {
       SUBVOLUME = "/storage/tank/@home_data";
       FSTYPE = "btrfs";
-      TIMELINE_LIMIT_HOURLY = 3;
+      TIMELINE_LIMIT_HOURLY = 4;
       TIMELINE_LIMIT_DAILY = 7;
       TIMELINE_LIMIT_WEEKLY = 4;
       TIMELINE_LIMIT_MONTHLY = 3;
