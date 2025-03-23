@@ -99,6 +99,12 @@
   services.cockpit = {
     enable = true;
     openFirewall = true;
+    settings = {
+      WebService = {
+        LoginTo = false;
+        AllowUnencrypted = true;
+      };
+    };
   };
 
   services.immich = {
