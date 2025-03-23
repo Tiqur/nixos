@@ -8,7 +8,6 @@ echo -e "$readme_contents" > README.md
 # Format files
 find . -type f -name "*.nix" -exec nixfmt {} \;
 
-
 # Add to git repo and push
 git add .
 git checkout -b main
