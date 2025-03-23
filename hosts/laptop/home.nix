@@ -73,94 +73,94 @@
   #  enable = true;
   #};
 
-  #programs.waybar = {
-  #  enable = false;
-  #  settings = {
+  programs.waybar = {
+    enable = false;
+    settings = {
 
-  #    mainBar = {
-  #      layer = "top";
-  #      position = "top";
-  #      height = 40;
-  #      spacing = 5;
-  #      margin-bottom = -45;
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 40;
+        spacing = 5;
+        margin-bottom = -45;
 
-  #      modules-left = [
-  #        "hyprland/workspaces"
-  #        "hyprland/window"
-  #      ];
-  #      modules-center = [
-  #        "clock#time"
-  #      ];
-  #      modules-right = [
-  #        "pipewire"
-  #        "network"
-  #      ];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
+        modules-center = [
+          "clock#time"
+        ];
+        modules-right = [
+          "pipewire"
+          "network"
+        ];
 
-  #      "hyprland/workspaces" = {
-  #        disable-scroll = true;
-  #        all-outputs = false;
-  #        format = "{icon}";
-  #        format-icons = {
-  #          default = "";
-  #        };
-  #      };
+        "hyprland/workspaces" = {
+          disable-scroll = true;
+          all-outputs = false;
+          format = "{icon}";
+          format-icons = {
+            default = "";
+          };
+        };
 
-  #      "pipewire" = {
-  #      };
+        "pipewire" = {
+        };
 
-  #      "clock#time" = {
-  #        format = "<span color='#cc241d'></span>{:%I:%M %p - %a %d %b}";
-  #        tooltip = false;
-  #        min-length = 8;
-  #        max-length = 30;
-  #      };
+        "clock#time" = {
+          format = "<span color='#cc241d'></span>{:%I:%M %p - %a %d %b}";
+          tooltip = false;
+          min-length = 8;
+          max-length = 30;
+        };
 
-  #      "network" = {
-  #        format-wifi = "Wireless";
-  #        format-ethernet = "Wired";
-  #        format-disconnected = "Disconnected";
-  #      };
-  #    };
-  #  };
-  #  style = ''
-  #    @define-color blue #88c0d0;
-  #    @define-color purple #b48ead;
+        "network" = {
+          format-wifi = "Wireless";
+          format-ethernet = "Wired";
+          format-disconnected = "Disconnected";
+        };
+      };
+    };
+    style = ''
+      @define-color blue #88c0d0;
+      @define-color purple #b48ead;
 
-  #    * {
-  #      padding: 0;
-  #      border-radius: 0;
-  #      min-height: 0;
-  #      color: @white;
-  #      font-weight: 400;
-  #      margin: 0;
-  #      border: none;
-  #      text-shadow: none;
-  #      transition: none;
-  #      box-shadow: none;
-  #      font-size: 1rem;
-  #      font-family: JetBrainsMono Nerd Font Propo;
-  #      border-radius: 8px;
-  #      background: transparent;
-  #    }
+      * {
+        padding: 0;
+        border-radius: 0;
+        min-height: 0;
+        color: @white;
+        font-weight: 400;
+        margin: 0;
+        border: none;
+        text-shadow: none;
+        transition: none;
+        box-shadow: none;
+        font-size: 1rem;
+        font-family: JetBrainsMono Nerd Font Propo;
+        border-radius: 8px;
+        background: transparent;
+      }
 
-  #    .modules-left {
-  #      padding-left: 80px;
-  #    }
-  #    .modules-right {
-  #      padding-right: 80px;
-  #    }
+      .modules-left {
+        padding-left: 80px;
+      }
+      .modules-right {
+        padding-right: 80px;
+      }
 
-  #    window#waybar>* {
-  #      margin-top: 10px;
-  #    }
+      window#waybar>* {
+        margin-top: 10px;
+      }
 
-  #    .module {
-  #      background-color: #282a36;
-  #      padding-left: 1rem;
-  #      padding-right: 1rem;
-  #    }
-  #  '';
-  #};
+      .module {
+        background-color: #282a36;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    '';
+  };
 
   programs.alacritty = {
     enable = true;
@@ -289,7 +289,7 @@
         border_size = 2;
         layout = "dwindle";
         allow_tearing = false;
-        "col.active_border" = "rgba(88c0d0ee)";
+        "col.active_border" = "rgba(74c7ecee)";
         "col.inactive_border" = "rgba(3b4252ee)";
       };
 

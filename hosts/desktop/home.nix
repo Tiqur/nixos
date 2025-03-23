@@ -10,6 +10,22 @@
   home.homeDirectory = "/home/tiqur";
   home.stateVersion = "24.11";
 
+  #programs.noisetorch.enable = true;
+
+  #systemd.user.services.noisetorch = {
+  #  after = [ "default.target" ];
+  #  wantedBy = [ "default.target" ];
+  #  serviceConfig = {
+  #    Type = "simple";
+  #    ExecStart = "${pkgs.noisetorch}/bin/noisetorch -i";
+  #    Restart = "on-failure";
+  #    RestartSec = 5;
+  #  };
+  #  #environment = {
+  #  #  PULSE_SERVER = "/run/user/1000/pulse/native";
+  #  #};
+  #};
+
   programs.firefox = {
     enable = true;
     profiles.default = {
@@ -277,226 +293,227 @@
       ];
     };
   };
-  #wayland.windowManager.hyprland = {
-  #  enable = true;
-  #  package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  #  plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
 
-  #  settings = {
-  #    "$terminal" = "alacritty";
-  #    "$mod" = "SUPER";
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
 
-  #    monitor = [
-  #      "DP-1, 2560x1440@240, 0x0, 1"
-  #      ",prefered,auto,1"
-  #    ];
+    settings = {
+      "$terminal" = "alacritty";
+      "$mod" = "SUPER";
 
-  #    xwayland = {
-  #      force_zero_scaling = true;
-  #    };
+      monitor = [
+        "DP-1, 2560x1440@240, 0x0, 1"
+        ",prefered,auto,1"
+      ];
 
-  #    general = {
-  #      gaps_in = 10;
-  #      gaps_out = 80;
-  #      border_size = 2;
-  #      layout = "dwindle";
-  #      allow_tearing = false;
-  #      "col.active_border" = "rgba(88c0d0ee)";
-  #      "col.inactive_border" = "rgba(3b4252ee)";
-  #    };
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
-  #    input = {
-  #      kb_layout = "us";
-  #      follow_mouse = true;
-  #      touchpad = {
-  #        natural_scroll = true;
-  #      };
-  #      accel_profile = "flat";
-  #      sensitivity = 0;
-  #    };
+      general = {
+        gaps_in = 10;
+        gaps_out = 80;
+        border_size = 2;
+        layout = "dwindle";
+        allow_tearing = false;
+        "col.active_border" = "rgba(f5e0dcee)";
+        "col.inactive_border" = "rgba(3b4252ee)";
+      };
 
-  #    decoration = {
-  #      rounding = 8;
-  #      active_opacity = 0.9;
-  #      inactive_opacity = 0.8;
-  #      fullscreen_opacity = 1.0;
+      input = {
+        kb_layout = "us";
+        follow_mouse = true;
+        touchpad = {
+          natural_scroll = true;
+        };
+        accel_profile = "flat";
+        sensitivity = 0;
+      };
 
-  #      blur = {
-  #        enabled = true;
-  #        xray = true;
-  #        special = false;
-  #        new_optimizations = true;
-  #        size = 2;
-  #        passes = 3;
-  #        brightness = 1;
-  #        noise = 0.01;
-  #        contrast = 1;
-  #        popups = true;
-  #        popups_ignorealpha = 0.6;
-  #        ignore_opacity = false;
-  #      };
+      decoration = {
+        rounding = 8;
+        active_opacity = 0.9;
+        inactive_opacity = 0.8;
+        fullscreen_opacity = 1.0;
 
-  #      shadow = {
-  #        enabled = false;
-  #        range = 8;
-  #      };
-  #    };
+        blur = {
+          enabled = true;
+          xray = true;
+          special = false;
+          new_optimizations = true;
+          size = 2;
+          passes = 3;
+          brightness = 1;
+          noise = 0.01;
+          contrast = 1;
+          popups = true;
+          popups_ignorealpha = 0.6;
+          ignore_opacity = false;
+        };
 
-  #    animations = {
-  #      enabled = true;
-  #      bezier = [
-  #        "linear, 0, 0, 1, 1"
-  #        "md3_standard, 0.2, 0, 0, 1"
-  #        "md3_decel, 0.05, 0.7, 0.1, 1"
-  #        "md3_accel, 0.3, 0, 0.8, 0.15"
-  #        "overshot, 0.05, 0.9, 0.1, 1.1"
-  #        "crazyshot, 0.1, 1.5, 0.76, 0.92"
-  #        "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
-  #        "menu_decel, 0.1, 1, 0, 1"
-  #        "menu_accel, 0.38, 0.04, 1, 0.07"
-  #        "easeInOutCirc, 0.85, 0, 0.15, 1"
-  #        "easeOutCirc, 0, 0.55, 0.45, 1"
-  #        "easeOutExpo, 0.16, 1, 0.3, 1"
-  #        "softAcDecel, 0.26, 0.26, 0.15, 1"
-  #        "md2, 0.4, 0, 0.2, 1"
-  #      ];
-  #      animation = [
-  #        "windows, 1, 3, md3_decel, popin 60%"
-  #        "windowsIn, 1, 3, md3_decel, popin 60%"
-  #        "windowsOut, 1, 3, md3_accel, popin 60%"
-  #        "border, 1, 10, default"
-  #        "fade, 1, 3, md3_decel"
-  #        "layersIn, 1, 3, menu_decel, slide"
-  #        "layersOut, 1, 1.6, menu_accel"
-  #        "fadeLayersIn, 1, 2, menu_decel"
-  #        "fadeLayersOut, 1, 4.5, menu_accel"
-  #        "workspaces, 1, 7, menu_decel, slide"
-  #        "specialWorkspace, 1, 3, md3_decel, slidevert"
-  #      ];
-  #    };
+        shadow = {
+          enabled = false;
+          range = 8;
+        };
+      };
 
-  #    cursor = {
-  #      enable_hyprcursor = false;
-  #    };
+      animations = {
+        enabled = true;
+        bezier = [
+          "linear, 0, 0, 1, 1"
+          "md3_standard, 0.2, 0, 0, 1"
+          "md3_decel, 0.05, 0.7, 0.1, 1"
+          "md3_accel, 0.3, 0, 0.8, 0.15"
+          "overshot, 0.05, 0.9, 0.1, 1.1"
+          "crazyshot, 0.1, 1.5, 0.76, 0.92"
+          "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
+          "menu_decel, 0.1, 1, 0, 1"
+          "menu_accel, 0.38, 0.04, 1, 0.07"
+          "easeInOutCirc, 0.85, 0, 0.15, 1"
+          "easeOutCirc, 0, 0.55, 0.45, 1"
+          "easeOutExpo, 0.16, 1, 0.3, 1"
+          "softAcDecel, 0.26, 0.26, 0.15, 1"
+          "md2, 0.4, 0, 0.2, 1"
+        ];
+        animation = [
+          "windows, 1, 3, md3_decel, popin 60%"
+          "windowsIn, 1, 3, md3_decel, popin 60%"
+          "windowsOut, 1, 3, md3_accel, popin 60%"
+          "border, 1, 10, default"
+          "fade, 1, 3, md3_decel"
+          "layersIn, 1, 3, menu_decel, slide"
+          "layersOut, 1, 1.6, menu_accel"
+          "fadeLayersIn, 1, 2, menu_decel"
+          "fadeLayersOut, 1, 4.5, menu_accel"
+          "workspaces, 1, 7, menu_decel, slide"
+          "specialWorkspace, 1, 3, md3_decel, slidevert"
+        ];
+      };
 
-  #    dwindle = {
-  #      pseudotile = true;
-  #      preserve_split = true;
-  #      #no_gaps_when_only = 0;
-  #      smart_split = false;
-  #      smart_resizing = false;
-  #    };
+      cursor = {
+        enable_hyprcursor = false;
+      };
 
-  #    misc = {
-  #      disable_hyprland_logo = true;
-  #      disable_splash_rendering = true;
-  #    };
+      dwindle = {
+        pseudotile = true;
+        preserve_split = true;
+        #no_gaps_when_only = 0;
+        smart_split = false;
+        smart_resizing = false;
+      };
 
-  #    bind = [
-  #      # General
-  #      "$mod, return, exec, $terminal -e fish -c \"fastfetch; exec fish\""
-  #      "$mod SHIFT, q, killactive"
-  #      "$mod SHIFT, e, exit"
-  #      "$mod SHIFT, l, exec, ${pkgs.hyprlock}/bin/hyprlock"
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+      };
 
-  #      # Screen focus
-  #      "$mod, SHIFT SPACE, togglefloating"
-  #      "$mod, u, focusurgentorlast"
-  #      "$mod, tab, focuscurrentorlast"
-  #      "$mod, f, fullscreen"
+      bind = [
+        # General
+        "$mod, return, exec, $terminal -e fish -c \"fastfetch; exec fish\""
+        "$mod SHIFT, q, killactive"
+        "$mod SHIFT, e, exit"
+        "$mod SHIFT, l, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
-  #      # Screen resize
-  #      "$mod CTRL, h, resizeactive, -20 0"
-  #      "$mod CTRL, l, resizeactive, 20 0"
-  #      "$mod CTRL, k, resizeactive, 0 -20"
-  #      "$mod CTRL, j, resizeactive, 0 20"
+        # Screen focus
+        "$mod, SHIFT SPACE, togglefloating"
+        "$mod, u, focusurgentorlast"
+        "$mod, tab, focuscurrentorlast"
+        "$mod, f, fullscreen"
 
-  #      # Workspacek
-  #      "$mod, 1, workspace, 1"
-  #      "$mod, 2, workspace, 2"
-  #      "$mod, 3, workspace, 3"
-  #      "$mod, 4, workspace, 4"
-  #      "$mod, 5, workspace, 5"
-  #      "$mod, 6, workspace, 6"
-  #      "$mod, 7, workspace, 7"
-  #      "$mod, 8, workspace, 8"
-  #      "$mod, 9, workspace, 9"
-  #      "$mod, 0, workspace, 10"
+        # Screen resize
+        "$mod CTRL, h, resizeactive, -20 0"
+        "$mod CTRL, l, resizeactive, 20 0"
+        "$mod CTRL, k, resizeactive, 0 -20"
+        "$mod CTRL, j, resizeactive, 0 20"
 
-  #      # Move to workspaces
-  #      "$mod SHIFT, 1, movetoworkspace,1"
-  #      "$mod SHIFT, 2, movetoworkspace,2"
-  #      "$mod SHIFT, 3, movetoworkspace,3"
-  #      "$mod SHIFT, 4, movetoworkspace,4"
-  #      "$mod SHIFT, 5, movetoworkspace,5"
-  #      "$mod SHIFT, 6, movetoworkspace,6"
-  #      "$mod SHIFT, 7, movetoworkspace,7"
-  #      "$mod SHIFT, 8, movetoworkspace,8"
-  #      "$mod SHIFT, 9, movetoworkspace,9"
-  #      "$mod SHIFT, 0, movetoworkspace,10"
+        # Workspacek
+        "$mod, 1, workspace, 1"
+        "$mod, 2, workspace, 2"
+        "$mod, 3, workspace, 3"
+        "$mod, 4, workspace, 4"
+        "$mod, 5, workspace, 5"
+        "$mod, 6, workspace, 6"
+        "$mod, 7, workspace, 7"
+        "$mod, 8, workspace, 8"
+        "$mod, 9, workspace, 9"
+        "$mod, 0, workspace, 10"
 
-  #      # Navigation
-  #      "$mod, h, movefocus, l"
-  #      "$mod, j, movefocus, d"
-  #      "$mod, k, movefocus, u"
-  #      "$mod, l, movefocus, r"
+        # Move to workspaces
+        "$mod SHIFT, 1, movetoworkspace,1"
+        "$mod SHIFT, 2, movetoworkspace,2"
+        "$mod SHIFT, 3, movetoworkspace,3"
+        "$mod SHIFT, 4, movetoworkspace,4"
+        "$mod SHIFT, 5, movetoworkspace,5"
+        "$mod SHIFT, 6, movetoworkspace,6"
+        "$mod SHIFT, 7, movetoworkspace,7"
+        "$mod SHIFT, 8, movetoworkspace,8"
+        "$mod SHIFT, 9, movetoworkspace,9"
+        "$mod SHIFT, 0, movetoworkspace,10"
 
-  #      # Move Windows
-  #      "$mod SHIFT, h, movewindow, l"
-  #      "$mod SHIFT, j, movewindow, d"
-  #      "$mod SHIFT, k, movewindow, u"
-  #      "$mod SHIFT, l, movewindow, r"
+        # Navigation
+        "$mod, h, movefocus, l"
+        "$mod, j, movefocus, d"
+        "$mod, k, movefocus, u"
+        "$mod, l, movefocus, r"
 
-  #      # Applications
-  #      #"$mod ALT, f, exec, ${pkgs.firefox}/bin/firefox"
-  #      #"$mod ALT, e, exec, $terminal --hold -e ${pkgs.yazi}/bin/yazi"
-  #      #"$mod ALT, o, exec, ${pkgs.obsidian}/bin/obsidian"
-  #      "$mod, d, exec, pkill fuzzel || ${pkgs.fuzzel}/bin/fuzzel"
-  #      #"$mod ALT, r, exec, pkill anyrun || ${pkgs.anyrun}/bin/anyrun"
-  #      #"$mod ALT, n, exec, swaync-client -t -sw"
+        # Move Windows
+        "$mod SHIFT, h, movewindow, l"
+        "$mod SHIFT, j, movewindow, d"
+        "$mod SHIFT, k, movewindow, u"
+        "$mod SHIFT, l, movewindow, r"
 
-  #      # Clipboard
-  #      #"$mod ALT, v, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
+        # Applications
+        #"$mod ALT, f, exec, ${pkgs.firefox}/bin/firefox"
+        #"$mod ALT, e, exec, $terminal --hold -e ${pkgs.yazi}/bin/yazi"
+        #"$mod ALT, o, exec, ${pkgs.obsidian}/bin/obsidian"
+        "$mod, d, exec, pkill fuzzel || ${pkgs.fuzzel}/bin/fuzzel"
+        #"$mod ALT, r, exec, pkill anyrun || ${pkgs.anyrun}/bin/anyrun"
+        #"$mod ALT, n, exec, swaync-client -t -sw"
 
-  #      # Screencapture
-  #      "$mod, S, exec, ${pkgs.grim}/bin/grim | wl-copy"
-  #      "$mod SHIFT+ALT, S, exec, ${pkgs.grim}/bin/grim -g \"$(slurp)\" - | ${pkgs.swappy}/bin/swappy -f -"
-  #    ];
+        # Clipboard
+        #"$mod ALT, v, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
 
-  #    bindm = [
-  #      #"$mod, mouse:272, hy3:movewindow"
-  #      "$mod, mouse:273, resizewindow"
-  #    ];
+        # Screencapture
+        "$mod, S, exec, ${pkgs.grim}/bin/grim | wl-copy"
+        "$mod SHIFT+ALT, S, exec, ${pkgs.grim}/bin/grim -g \"$(slurp)\" - | ${pkgs.swappy}/bin/swappy -f -"
+      ];
 
-  #    env = [
-  #      #"NIXOS_OZONE_WL,1"
-  #      #"_JAVA_AWT_WM_NONREPARENTING,1"
-  #      #"QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-  #      #"QT_QPA_PLATFORM,wayland"
-  #      #"SDL_VIDEODRIVER,wayland"
-  #      #"GDK_BACKEND,wayland"
-  #      #"LIBVA_DRIVER_NAME,nvidia"
-  #      #"XDG_SESSION_TYPE,wayland"
-  #      #"XDG_SESSION_DESKTOP,Hyprland"
-  #      #"XDG_CURRENT_DESKTOP,Hyprland"
-  #      #"GBM_BACKEND,nvidia-drm"
-  #      #"__GLX_VENDOR_LIBRARY_NAME,nvidia"
-  #    ];
-  #    exec-once = [
-  #      "${pkgs.waybar}/bin/waybar"
-  #      #"${pkgs.waybar}/bin/eww"
-  #      #"${pkgs.hyprpaper}/bin/hyprpaper"
-  #      #"${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store"
-  #      #"${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store"
-  #      #"eval $(gnome-keyring-daemon --start --components=secrets,ssh,gpg,pkcs11)"
-  #      #"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
-  #      #"hash dbus-update-activation-environment 2>/dev/null"
-  #      #"export SSH_AUTH_SOCK"
-  #      #"${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-  #    ];
-  #  };
+      bindm = [
+        #"$mod, mouse:272, hy3:movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
 
-  #};
+      env = [
+        #"NIXOS_OZONE_WL,1"
+        #"_JAVA_AWT_WM_NONREPARENTING,1"
+        #"QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        #"QT_QPA_PLATFORM,wayland"
+        #"SDL_VIDEODRIVER,wayland"
+        #"GDK_BACKEND,wayland"
+        #"LIBVA_DRIVER_NAME,nvidia"
+        #"XDG_SESSION_TYPE,wayland"
+        #"XDG_SESSION_DESKTOP,Hyprland"
+        #"XDG_CURRENT_DESKTOP,Hyprland"
+        #"GBM_BACKEND,nvidia-drm"
+        #"__GLX_VENDOR_LIBRARY_NAME,nvidia"
+      ];
+      exec-once = [
+        "${pkgs.waybar}/bin/waybar"
+        #"${pkgs.waybar}/bin/eww"
+        #"${pkgs.hyprpaper}/bin/hyprpaper"
+        #"${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store"
+        #"${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store"
+        #"eval $(gnome-keyring-daemon --start --components=secrets,ssh,gpg,pkcs11)"
+        #"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
+        #"hash dbus-update-activation-environment 2>/dev/null"
+        #"export SSH_AUTH_SOCK"
+        #"${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+      ];
+    };
+
+  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.

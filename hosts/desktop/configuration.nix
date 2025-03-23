@@ -40,9 +40,9 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
-  services.xserver.displayManager.sddm.theme = "where_is_my_sddm_theme";
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.theme = "where_is_my_sddm_theme";
   #programs.hyprlock.enable = true;
 
   #services.xserver.displayManager.autoLogin.enable = true;
@@ -69,6 +69,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
+    audio.enable = true;
     extraConfig.pipewire.adjust-sample-rate = {
       "context.properties" = {
         "default.clock.rate" = 192000;

@@ -6,6 +6,23 @@
     ./hardware-configuration.nix
   ];
 
+  sops = {
+    secrets = {
+      borg_ssh_key = {
+        sopsFile = /etc/secrets/borg.yaml;
+      };
+      borg_user = {
+        sopsFile = /etc/secrets/borg.yaml;
+      };
+      borg_host = {
+        sopsFile = /etc/secrets/borg.yaml;
+      };
+      borg_passphrase = {
+        sopsFile = /etc/secrets/borg.yaml;
+      };
+    };
+  };
+
   # Consider automatic upgrades (for security)
 
   # Docker
@@ -66,6 +83,18 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "tiqur";
 
+  services.borgbackup.jobs.storage-tank = {
+    paths = "/storage/tank/test";
+    environment.BORG_RSH = "ssh -i ${config.sops.secrets.borg_ssh_key.path}";
+    repo = "ssh://${config.sops.secrets.borg_user}@${config.sops.secrets.borg_host}:23/";
+    encryption = {
+      mode = "repokey";
+      passCommand = "cat ${config.sops.secrets.borg_passphrase.path}";
+    };
+    compression = "auto,zstd";
+    startAt = "daily";
+  };
+
   services.scrutiny = {
     enable = true;
     openFirewall = true;
@@ -96,6 +125,7 @@
     vim
     git
     htop
+    sops
   ];
 
   services.fail2ban = {
