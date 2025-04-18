@@ -17,9 +17,10 @@
 │   │   └── wifi.nix
 │   ├── server
 │   │   ├── configuration.nix
-│   │   └── hardware-configuration.nix
+│   │   ├── hardware-configuration.nix
+│   │   └── secrets
+│   │       └── secrets.yaml
 │   └── shared.nix
-├── nixosModules
 ├── README.md
 ├── rebuild.sh
 └── wallpapers
@@ -41,5 +42,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 33 files
+7 directories, 34 files
 ```

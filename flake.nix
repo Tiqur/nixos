@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     #https://github.com/0xc000022070/zen-browser-flake
     zen-browser.url = "github:0xc000022070/zen-browser-flake";

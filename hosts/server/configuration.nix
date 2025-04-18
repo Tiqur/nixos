@@ -1,27 +1,31 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     # Include the results of the hardware scan.
+    inputs.sops-nix.nixosModules.sops
     ./hardware-configuration.nix
   ];
 
-  sops = {
-    secrets = {
-      borg_ssh_key = {
-        sopsFile = /etc/secrets/borg.yaml;
-      };
-      borg_user = {
-        sopsFile = /etc/secrets/borg.yaml;
-      };
-      borg_host = {
-        sopsFile = /etc/secrets/borg.yaml;
-      };
-      borg_passphrase = {
-        sopsFile = /etc/secrets/borg.yaml;
-      };
-    };
-  };
+  # Ensure directory exists
+  systemd.tmpfiles.rules = [
+    "d /run/secrets/ 0755 root root -"
+  ];
+
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+
+  sops.age.keyFile = "/home/tiqur/storage/secrets/keys.txt";
+
+  sops.secrets."borg-ssh-key-path" = { };
+  sops.secrets."borg-user" = { };
+  sops.secrets."borg-host" = { };
+  sops.secrets."borg-passphrase" = { };
 
   # Consider automatic upgrades (for security)
 
@@ -50,6 +54,28 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  #https://search.nixos.org/options?channel=24.11&show=services.minecraft-server.serverProperties&from=0&size=50&sort=relevance&type=packages&query=services.minecraft
+  services.minecraft-server = {
+    enable = true;
+    declarative = true;
+    openFirewall = true;
+    eula = true;
+    jvmOpts = "-Xms4092M -Xmx4092M";
+    dataDir = "/storage/tank/minecraft";
+    whitelist = {
+      Tiqur = "0af77247-21bc-4729-9a97-6ed2538f6317";
+    };
+    serverProperties = {
+      server-port = 25565;
+      difficulty = 3;
+      gamemode = 1;
+      max-players = 50;
+      motd = "Minecraft server!";
+      white-list = true;
+      enable-rcon = true;
+    };
+  };
+
   # Scrub (self-heal) btrfs filesystems
   services.btrfs.autoScrub = {
     enable = true;
@@ -61,7 +87,18 @@
     snapshotInterval = "hourly";
     cleanupInterval = "12h";
     persistentTimer = true;
-    configs.tank = {
+    configs.tiqur = {
+      SUBVOLUME = "/storage/tank/@tiqur_backup";
+      FSTYPE = "btrfs";
+      TIMELINE_LIMIT_HOURLY = 4;
+      TIMELINE_LIMIT_DAILY = 7;
+      TIMELINE_LIMIT_WEEKLY = 4;
+      TIMELINE_LIMIT_MONTHLY = 3;
+      TIMELINE_LIMIT_YEARLY = 1;
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+    };
+    configs.home_data = {
       SUBVOLUME = "/storage/tank/@home_data";
       FSTYPE = "btrfs";
       TIMELINE_LIMIT_HOURLY = 4;
@@ -107,16 +144,21 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "tiqur";
 
-  services.borgbackup.jobs.storage-tank = {
-    paths = "/storage/tank/test";
-    environment.BORG_RSH = "ssh -i ${config.sops.secrets.borg_ssh_key.path}";
-    repo = "ssh://${config.sops.secrets.borg_user}@${config.sops.secrets.borg_host}:23/";
+  services.borgbackup.jobs."borg-backup" = {
+    paths = [
+      "/storage/tank/@home_data"
+      "/storage/tank/@tiqur_backup"
+    ];
+    repo = "u453229@u453229.your-storagebox.de:/~/backup";
     encryption = {
       mode = "repokey";
-      passCommand = "cat ${config.sops.secrets.borg_passphrase.path}";
+      passCommand = "cat ${config.sops.secrets."borg-passphrase".path}";
     };
-    compression = "auto,zstd";
-    startAt = "daily";
+    environment.BORG_RSH = "ssh -v -p 23 -i /root/.ssh/id_ed25519";
+    environment.BORG_LOGGING_LEVEL = "DEBUG";
+    compression = "auto,lzma";
+    startAt = "weekly";
+    persistentTimer = true;
   };
 
   services.scrutiny = {
@@ -149,6 +191,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  environment.variables.EDITOR = "neovim";
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -167,28 +211,6 @@
     ignoreIP = [ "192.168.1.235" ];
   };
 
-  # age.secrets.restic-hetzner.file = ../../secrets/restic-hetzner.age;
-  # age.secrets.restic-hetzner-password.file = ../../secrets/restic-hetzner-password.age;
-
-  # services.restic.backups = {
-  #   remotebackup = {
-  #     initialize = true;
-  #     paths = [ # what to backup
-  #       "/persistent"
-  #     ];
-  #     passwordFile = config.age.secrets.restic-hetzner-password.path; # encryption
-  #     repository = "sftp://<boxname>-<subN>@<boxname>.your-storagebox.de/"; @ where to store it
-  #
-  #     extraOptions = [
-  #       # how to connect
-  #       "sftp.command='${pkgs.sshpass}/bin/sshpass -f ${config.age.secrets.restic-hetzner.path} -- ssh -4 u419690.your-storagebox.de -l u419690-sub1 -s sftp'"
-  #     ];
-  #     timerConfig = { # when to backup
-  #       OnCalendar = "00:05";
-  #       RandomizedDelaySec = "5h";
-  #     };
-  #   };
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     forwardX11 = true;
@@ -198,6 +220,22 @@
       PermitRootLogin = "no";
       AllowUsers = [ "tiqur" ];
       LogLevel = "VERBOSE";
+    };
+  };
+
+  systemd.services.python-osu-relayer-server-service = {
+    enable = true;
+    description = "Osu Replayer";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.nix}/bin/nix run .";
+      Restart = "always";
+      User = "tiqur";
+      WorkingDirectory = "/home/tiqur/osu-replayer-server";
+      StandardOutput = "journal";
+      StandardError = "journal";
+      RestartSec = "10s";
     };
   };
 
@@ -225,6 +263,7 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22
+    8727
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   networking.firewall.enable = true;
