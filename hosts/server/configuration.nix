@@ -9,6 +9,7 @@
   imports = [
     # Include the results of the hardware scan.
     inputs.sops-nix.nixosModules.sops
+    inputs.nix-minecraft.nixosModules.minecraft-servers
     ./hardware-configuration.nix
   ];
 
@@ -20,7 +21,7 @@
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
-  sops.age.keyFile = "/home/tiqur/storage/secrets/keys.txt";
+  sops.age.keyFile = "/storage/secrets/keys.txt";
 
   sops.secrets."borg-ssh-key-path" = { };
   sops.secrets."borg-user" = { };
@@ -54,25 +55,28 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  #https://search.nixos.org/options?channel=24.11&show=services.minecraft-server.serverProperties&from=0&size=50&sort=relevance&type=packages&query=services.minecraft
-  services.minecraft-server = {
+  services.minecraft-servers = {
     enable = true;
-    declarative = true;
-    openFirewall = true;
     eula = true;
-    jvmOpts = "-Xms4092M -Xmx4092M";
-    dataDir = "/storage/tank/minecraft";
-    whitelist = {
-      Tiqur = "0af77247-21bc-4729-9a97-6ed2538f6317";
-    };
-    serverProperties = {
-      server-port = 25565;
-      difficulty = 3;
-      gamemode = 1;
-      max-players = 50;
-      motd = "Minecraft server!";
-      white-list = true;
-      enable-rcon = true;
+    dataDir = "/storage/tank/@minecraft_servers";
+
+    servers.voidmc_survival = {
+      enable = true;
+      autoStart = true;
+      openFirewall = true;
+      package = inputs.nix-minecraft.legacyPackages.${pkgs.system}.fabricServers.fabric-1_21_5;
+      jvmOpts = "-Xmx8G -Xms4G";
+      whitelist = {
+        Tiqur = "0af77247-21bc-4729-9a97-6ed2538f6317";
+      };
+      serverProperties = {
+        server-port = 25565;
+        difficulty = 3;
+        gamemode = 1;
+        max-players = 50;
+        motd = "VoidMC Survival";
+        white-list = true;
+      };
     };
   };
 
@@ -87,7 +91,18 @@
     snapshotInterval = "hourly";
     cleanupInterval = "12h";
     persistentTimer = true;
-    configs.tiqur = {
+    configs.minecraft_servers = {
+      SUBVOLUME = "/storage/tank/@minecraft_servers";
+      FSTYPE = "btrfs";
+      TIMELINE_LIMIT_HOURLY = 4;
+      TIMELINE_LIMIT_DAILY = 7;
+      TIMELINE_LIMIT_WEEKLY = 4;
+      TIMELINE_LIMIT_MONTHLY = 3;
+      TIMELINE_LIMIT_YEARLY = 1;
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+    };
+    configs.tiqur_backup = {
       SUBVOLUME = "/storage/tank/@tiqur_backup";
       FSTYPE = "btrfs";
       TIMELINE_LIMIT_HOURLY = 4;
@@ -149,7 +164,7 @@
       "/storage/tank/@home_data"
       "/storage/tank/@tiqur_backup"
     ];
-    repo = "u453229@u453229.your-storagebox.de:/~/backup";
+    repo = "u453229@u453229.your-storagebox.de:/home/backup";
     encryption = {
       mode = "repokey";
       passCommand = "cat ${config.sops.secrets."borg-passphrase".path}";
