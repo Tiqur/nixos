@@ -238,37 +238,37 @@
     };
   };
 
-  systemd.services.python-osu-relayer-server-service = {
-    enable = true;
-    description = "Osu Replayer";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.nix}/bin/nix run .";
-      Restart = "always";
-      User = "tiqur";
-      WorkingDirectory = "/home/tiqur/osu-replayer-server";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      RestartSec = "10s";
-    };
-  };
+  #systemd.services.python-osu-relayer-server-service = {
+  #  enable = true;
+  #  description = "Osu Replayer";
+  #  after = [ "network.target" ];
+  #  wantedBy = [ "multi-user.target" ];
+  #  serviceConfig = {
+  #    ExecStart = "${pkgs.nix}/bin/nix run .";
+  #    Restart = "always";
+  #    User = "tiqur";
+  #    WorkingDirectory = "/home/tiqur/osu-replayer-server";
+  #    StandardOutput = "journal";
+  #    StandardError = "journal";
+  #    RestartSec = "10s";
+  #  };
+  #};
 
-  systemd.services.main-python-service = {
-    enable = true;
-    description = "My Python App Service";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.nix}/bin/nix run .";
-      Restart = "always";
-      User = "tiqur";
-      WorkingDirectory = "/home/tiqur/osu-score-history";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      RestartSec = "10s";
-    };
-  };
+  #systemd.services.main-python-service = {
+  #  enable = true;
+  #  description = "My Python App Service";
+  #  after = [ "network.target" ];
+  #  wantedBy = [ "multi-user.target" ];
+  #  serviceConfig = {
+  #    ExecStart = "${pkgs.nix}/bin/nix run .";
+  #    Restart = "always";
+  #    User = "tiqur";
+  #    WorkingDirectory = "/home/tiqur/osu-score-history";
+  #    StandardOutput = "journal";
+  #    StandardError = "journal";
+  #    RestartSec = "10s";
+  #  };
+  #};
 
   nix.settings.experimental-features = [
     "nix-command"
