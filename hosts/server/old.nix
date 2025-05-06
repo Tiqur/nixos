@@ -27,17 +27,18 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/98c83fca-d368-4363-b993-1581707097c7";
+    device = "/dev/disk/by-uuid/fc10ca81-dd80-4a1e-9385-95d19935263e";
     fsType = "ext4";
   };
 
+  #fileSystems."/nix" =
+  #  { device = "/dev/disk/by-uuid/fc10ca81-dd80-4a1e-9385-95d19935263e";
+  #    fsType = "ext4";
+  #  };
+
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/E7EB-86D8";
+    device = "/dev/disk/by-uuid/BDEE-7450";
     fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
   };
 
   fileSystems."/storage/tank" = {
@@ -58,6 +59,11 @@
       "compress=zstd"
       "nofail"
     ];
+  };
+
+  fileSystems."/storage/secrets" = {
+    device = "/dev/disk/by-uuid/5726f408-a734-4960-bc0f-26cfecfb53c8";
+    fsType = "ext4";
   };
   swapDevices = [ ];
 

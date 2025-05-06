@@ -18,6 +18,7 @@
 │   ├── server
 │   │   ├── configuration.nix
 │   │   ├── hardware-configuration.nix
+│   │   ├── old.nix
 │   │   └── secrets
 │   │       └── secrets.yaml
 │   └── shared.nix
@@ -42,5 +43,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 34 files
+7 directories, 35 files
 ```

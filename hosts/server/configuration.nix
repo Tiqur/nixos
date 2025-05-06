@@ -14,19 +14,19 @@
   ];
 
   # Ensure directory exists
-  systemd.tmpfiles.rules = [
-    "d /run/secrets/ 0755 root root -"
-  ];
+  #systemd.tmpfiles.rules = [
+  #  "d /run/secrets/ 0755 root root -"
+  #];
 
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+  #sops.defaultSopsFile = ./secrets/secrets.yaml;
+  #sops.defaultSopsFormat = "yaml";
 
-  sops.age.keyFile = "/storage/secrets/keys.txt";
+  #sops.age.keyFile = "/storage/secrets/keys.txt";
 
-  sops.secrets."borg-ssh-key-path" = { };
-  sops.secrets."borg-user" = { };
-  sops.secrets."borg-host" = { };
-  sops.secrets."borg-passphrase" = { };
+  #sops.secrets."borg-ssh-key-path" = { };
+  #sops.secrets."borg-user" = { };
+  #sops.secrets."borg-host" = { };
+  #sops.secrets."borg-passphrase" = { };
 
   # Consider automatic upgrades (for security)
 
@@ -159,22 +159,22 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "tiqur";
 
-  services.borgbackup.jobs."borg-backup" = {
-    paths = [
-      "/storage/tank/@home_data"
-      "/storage/tank/@tiqur_backup"
-    ];
-    repo = "u453229@u453229.your-storagebox.de:/home/backup";
-    encryption = {
-      mode = "repokey";
-      passCommand = "cat ${config.sops.secrets."borg-passphrase".path}";
-    };
-    environment.BORG_RSH = "ssh -v -p 23 -i /root/.ssh/id_ed25519";
-    environment.BORG_LOGGING_LEVEL = "DEBUG";
-    compression = "auto,lzma";
-    startAt = "weekly";
-    persistentTimer = true;
-  };
+  #services.borgbackup.jobs."borg-backup" = {
+  #  paths = [
+  #    "/storage/tank/@home_data"
+  #    "/storage/tank/@tiqur_backup"
+  #  ];
+  #  repo = "u453229@u453229.your-storagebox.de:/home/backup";
+  #  encryption = {
+  #    mode = "repokey";
+  #    passCommand = "cat ${config.sops.secrets."borg-passphrase".path}";
+  #  };
+  #  environment.BORG_RSH = "ssh -v -p 23 -i /root/.ssh/id_ed25519";
+  #  environment.BORG_LOGGING_LEVEL = "DEBUG";
+  #  compression = "auto,lzma";
+  #  startAt = "weekly";
+  #  persistentTimer = true;
+  #};
 
   services.scrutiny = {
     enable = true;
