@@ -10,8 +10,6 @@
   home.homeDirectory = "/home/tiqur";
   home.stateVersion = "24.11";
 
-  #programs.noisetorch.enable = true;
-
   #systemd.user.services.noisetorch = {
   #  after = [ "default.target" ];
   #  wantedBy = [ "default.target" ];
@@ -24,6 +22,84 @@
   #  #environment = {
   #  #  PULSE_SERVER = "/run/user/1000/pulse/native";
   #  #};
+  #};
+
+  #programs.neovim = {
+  #  enable = true;
+  #  defaultEditor = true;
+  #  extraConfig = ''
+  #    " Clipboard
+  #    set clipboard=unnamedplus
+  #
+  #    " Line numbers
+  #    set relativenumber
+  #    set number
+  #
+  #    " Search and bell
+  #    set hlsearch
+  #    set errorbells
+  #
+  #    " Tabs and indentation
+  #    set tabstop=2
+  #    set softtabstop=2
+  #    set shiftwidth=2
+  #    set expandtab
+  #    set smartindent
+  #    set nowrap
+  #    set smartcase
+  #
+  #    " Swap and backup
+  #    set noswapfile
+  #    set backupdir=~/.config/nvim/.backup//
+  #    set directory=~/.config/nvim/.swp//
+  #    set nobackup
+  #
+  #    " Undo
+  #    set undofile
+  #    set undodir=~/.config/nvim/.undo//
+  #    set incsearch
+  #
+  #    " Spell check
+  #    set spell
+  #
+  #    " Mouse and mode
+  #    set mouse=a
+  #    set noshowmode
+  #
+  #    " Update time
+  #    set updatetime=20
+  #
+  #    " Termguicolors and cursorline
+  #    set termguicolors
+  #    set cursorline
+
+  #
+  #    " Leader keys
+  #    let mapleader = " "
+  #    let maplocalleader = " "
+  #
+  #    " Keybindings
+  #    nnoremap <C-d> <C-d>zz
+  #    nnoremap <C-y> <C-u>zz
+  #
+  #    " Window split navigation
+  #    nnoremap <leader>h :wincmd h<CR>
+  #    nnoremap <leader>j :wincmd j<CR>
+  #    nnoremap <leader>k :wincmd k<CR>
+  #    nnoremap <leader>l :wincmd l<CR>
+  #
+  #    " Telescope and others
+  #    nnoremap <leader>f :Telescope find_files<CR>
+  #    nnoremap <leader>r :Telescope live_grep<CR>
+  #    nnoremap <leader>g :LazyGit<CR>
+  #    nnoremap <leader>n :NvimTreeToggle<CR>
+  #  '';
+
+  #  #plugins = with pkgs.vimPlugins; [
+  #  #];
+  #  #extraPackages = [
+
+  #  #];
   #};
 
   programs.firefox = {
@@ -417,7 +493,7 @@
         "$mod SHIFT, l, exec, ${pkgs.hyprlock}/bin/hyprlock"
 
         # Screen focus
-        "$mod, SHIFT SPACE, togglefloating"
+        "$mod, SPACE, togglefloating"
         "$mod, u, focusurgentorlast"
         "$mod, tab, focuscurrentorlast"
         "$mod, f, fullscreen"

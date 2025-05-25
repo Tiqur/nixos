@@ -14,6 +14,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   # Networking
   networking.hostName = "nixos";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -71,16 +74,49 @@
     pulse.enable = true;
     jack.enable = true;
     audio.enable = true;
-    extraConfig.pipewire.adjust-sample-rate = {
-      "context.properties" = {
-        "default.clock.rate" = 192000;
-        "default.allowed-rates" = [
-          44100
-          48000
-          192000
-        ];
-      };
+    #extraLv2Packages = [ pkgs.rnnoise-plugin ];
+    #extraConfig.pipewire.adjust-sample-rate = {
+    #  "context.properties" = {
+    #    "default.clock.rate" = 192000;
+    #    "default.allowed-rates" = [
+    #      44100
+    #      48000
+    #      192000
+    #    ];
+    #  };
+    #};
+
+    extraConfig.pipewire."99-deepfilter-mono-source" = {
+      "context.modules" = [
+        {
+          "name" = "libpipewire-module-filter-chain";
+          "args" = {
+            "filter.graph" = {
+              "nodes" = [
+                {
+                  "type" = "ladspa";
+                  "name" = "DeepFilter Mono";
+                  "plugin" = "${pkgs.deepfilternet}/lib/ladspa/libdeep_filter_ladspa.so";
+                  "label" = "deep_filter_mono";
+                  "control" = {
+                    "Attenuation Limit (dB)" = 100;
+                  };
+                }
+              ];
+            };
+            "audio.position" = [ "MONO" ];
+            "audio.rate" = "48000";
+            "capture.props" = {
+              "node.passive" = true;
+            };
+            "playback.props" = {
+              "media.class" = "Audio/Source";
+            };
+          };
+        }
+      ];
     };
+
   };
 
   users.users.tiqur = {
@@ -89,27 +125,30 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     packages = with pkgs; [
-      osu-lazer-bin
-      opentabletdriver
       neovim
       alacritty
       firefox
       fastfetch
       obsidian
-      vesktop
+      #webcord
       discord
+      vesktop
       htop
       wofi
       unzip
-      steam
-      anki
+      anki-bin
       swappy
       grim
+      slurp
       waybar
       kitty
       home-manager
+      mpv
+      wl-clipboard
+      feh
     ];
   };
 
