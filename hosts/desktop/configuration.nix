@@ -29,6 +29,16 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  hardware.opentabletdriver.enable = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      mesa
+    ];
+  };
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -74,7 +84,6 @@
     pulse.enable = true;
     jack.enable = true;
     audio.enable = true;
-    #extraLv2Packages = [ pkgs.rnnoise-plugin ];
     #extraConfig.pipewire.adjust-sample-rate = {
     #  "context.properties" = {
     #    "default.clock.rate" = 192000;
@@ -149,6 +158,9 @@
       mpv
       wl-clipboard
       feh
+      prismlauncher
+      vscode
+      osu-lazer-bin
     ];
   };
 
@@ -176,7 +188,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-
+    steam
   ];
 
   # List services that you want to enable:

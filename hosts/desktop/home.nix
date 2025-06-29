@@ -379,10 +379,8 @@
       "$terminal" = "alacritty";
       "$mod" = "SUPER";
 
-      monitor = [
-        "DP-1, 2560x1440@240, 0x0, 1"
-        ",prefered,auto,1"
-      ];
+      #monitor = "DP-1, 3440@1440@144, 0x0, 1";
+      monitor = "DP-2, 2560x1440@240, 0x0, 1";
 
       xwayland = {
         force_zero_scaling = true;
