@@ -51,6 +51,12 @@
           ./hosts/desktop/configuration.nix
           ./hosts/desktop/hardware-configuration.nix
           ./hosts/shared.nix
+          (
+            { pkgs, ... }:
+            {
+              nixpkgs.overlays = [ (import ./overlays/update-osu-lazer.nix) ];
+            }
+          )
         ];
       };
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {

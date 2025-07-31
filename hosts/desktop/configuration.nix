@@ -23,6 +23,7 @@
   networking.networkmanager.enable = true;
   programs.nm-applet.enable = true;
 
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
@@ -84,16 +85,23 @@
     pulse.enable = true;
     jack.enable = true;
     audio.enable = true;
-    #extraConfig.pipewire.adjust-sample-rate = {
-    #  "context.properties" = {
-    #    "default.clock.rate" = 192000;
-    #    "default.allowed-rates" = [
-    #      44100
-    #      48000
-    #      192000
-    #    ];
-    #  };
-    #};
+    #wireplumber.enable = false;
+    #media-session.enable = true;
+
+  #extraConfig.pipewire."91-custom-settings" = {
+  #  "context.properties" = {
+  #    # Sample Rate Configuration
+  #    "default.clock.rate" = 192000;
+  #    "default.allowed-rates" = [ 44100 48000 192000 ];
+
+  #    # Low-Latency Configuration
+  #    "default.clock.quantum" = 32;
+  #    "default.clock.min-quantum" = 32;
+  #    "default.clock.max-quantum" = 32;
+  #  };
+  #};
+
+
 
     extraConfig.pipewire."99-deepfilter-mono-source" = {
       "context.modules" = [

@@ -22,6 +22,8 @@
 │   │   └── secrets
 │   │       └── secrets.yaml
 │   └── shared.nix
+├── overlays
+│   └── update-osu-lazer.nix
 ├── README.md
 ├── rebuild.sh
 └── wallpapers
@@ -43,5 +45,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 35 files
+8 directories, 36 files
 ```
