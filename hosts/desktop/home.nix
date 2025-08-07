@@ -24,6 +24,117 @@
   #  #};
   #};
 
+  programs.nixvim = {
+    enable = true;
+
+    opts = {
+      clipboard = "unnamedplus";
+      relativenumber = true;
+      number = true;
+      hlsearch = true;
+      errorbells = true;
+      tabstop = 2;
+      softtabstop = 2;
+      shiftwidth = 2;
+      expandtab = true;
+      smartindent = true;
+      wrap = false;
+      smartcase = true;
+      swapfile = false;
+      backup = false;
+      undofile = true;
+      incsearch = true;
+      termguicolors = true;
+      cursorline = true;
+      spell = true;
+      mouse = "a";
+      showmode = false;
+      updatetime = 20;
+    };
+
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+      vimtex_view_general_viewer = "okular";
+    };
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "<C-d>";
+        action = "<C-d>zz";
+      }
+      {
+        mode = "n";
+        key = "<C-y>";
+        action = "<C-u>zz";
+      }
+
+      {
+        mode = "n";
+        key = "<leader>h";
+        action = "<C-w>h";
+      }
+      {
+        mode = "n";
+        key = "<leader>j";
+        action = "<C-w>j";
+      }
+      {
+        mode = "n";
+        key = "<leader>k";
+        action = "<C-w>k";
+      }
+      {
+        mode = "n";
+        key = "<leader>l";
+        action = "<C-w>l";
+      }
+
+      {
+        mode = "n";
+        key = "<leader>f";
+        action = "<cmd>Telescope find_files<cr>";
+      }
+      {
+        mode = "n";
+        key = "<leader>r";
+        action = "<cmd>Telescope live_grep<cr>";
+      }
+      {
+        mode = "n";
+        key = "<leader>g";
+        action = "<cmd>LazyGit<cr>";
+      }
+      {
+        mode = "n";
+        key = "<leader>n";
+        action = "<cmd>NvimTreeToggle<cr>";
+      }
+    ];
+
+    extraConfigLua = ''
+      local prefix = vim.env.XDG_CONFIG_HOME or vim.fn.expand("~/.config")
+      vim.opt.undodir = { prefix .. "/nvim/.undo//" }
+      vim.opt.backupdir = { prefix .. "/nvim/.backup//" }
+      vim.opt.directory = { prefix .. "/nvim/.swp//" }
+    '';
+
+    colorschemes.catppuccin.enable = true;
+
+    plugins = {
+      telescope.enable = true;
+      nvim-tree.enable = true;
+      lazygit.enable = true;
+      lualine.enable = true;
+      vimtex.enable = true;
+      web-devicons.enable = true;
+      wrapping.enable = true;
+      nvim-autopairs.enable = true;
+      undotree.enable = true;
+    };
+  };
+
   #programs.neovim = {
   #  enable = true;
   #  defaultEditor = true;

@@ -167,11 +167,12 @@
   programs.firefox.enable = true;
 
   home-manager = {
-    extraSpecialArgs = {
-      inherit inputs;
-    };
-    users = {
-      "tiqur" = import ./home.nix;
+    extraSpecialArgs = { inherit inputs; };
+    users.tiqur = {
+      imports = [
+        ./home.nix
+        inputs.nixvim.homeModules.nixvim
+      ];
     };
   };
 
