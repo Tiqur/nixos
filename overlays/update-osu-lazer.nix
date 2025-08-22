@@ -1,10 +1,10 @@
 final: prev: {
   osu-lazer-bin = prev.osu-lazer-bin.overrideAttrs (oldAttrs: rec {
-    version = "2025.808.0-tachyon";
+    version = "2025.816.0-lazer";
 
     src = prev.fetchurl {
       url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-      sha256 = "31a4beaed5f573067ca91852bccbc54436963a5b8357bca822542af71af1aa6f";
+      sha256 = "sha256-mOihQ8mtHEiq0FElkJiZl0mhBqPi8CoGowN358Jc72A=";
     };
   });
 }

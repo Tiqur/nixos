@@ -74,7 +74,7 @@
   #};
 
   programs.waybar = {
-    enable = false;
+    enable = true;
     settings = {
 
       mainBar = {
@@ -443,12 +443,9 @@
         #"$mod ALT, r, exec, pkill anyrun || ${pkgs.anyrun}/bin/anyrun"
         #"$mod ALT, n, exec, swaync-client -t -sw"
 
-        # Clipboard
-        #"$mod ALT, v, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
-
         # Screencapture
-        "$mod, S, exec, ${pkgs.grim}/bin/grim | wl-copy"
-        "$mod SHIFT+ALT, S, exec, ${pkgs.grim}/bin/grim -g \"$(slurp)\" - | ${pkgs.swappy}/bin/swappy -f -"
+        #"$mod, S, exec, ${pkgs.grim}/bin/grim | wl-copy"
+        "$mod, S, exec, ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy"
       ];
 
       bindm = [

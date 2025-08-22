@@ -6,6 +6,7 @@
     impermanence.url = "github:nix-community/impermanence";
     sops-nix.url = "github:Mic92/sops-nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    catppuccin.url = "github:catppuccin/nix";
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -52,6 +53,7 @@
       impermanence,
       nix-minecraft,
       nixvim,
+      catppuccin,
       ...
     }@inputs:
     {
@@ -61,9 +63,9 @@
           ./hosts/desktop/configuration.nix
           ./hosts/desktop/hardware-configuration.nix
           ./hosts/shared.nix
-          {
+          ({
             nixpkgs.overlays = [ (import ./overlays/update-osu-lazer.nix) ];
-          }
+          })
         ];
       };
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
