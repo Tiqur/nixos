@@ -55,6 +55,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  services.adguardhome = {
+    enable = true;
+    host = "0.0.0.0";
+    port = 3000;
+    openFirewall = true;
+  };
+
   services.minecraft-servers = {
     enable = true;
     eula = true;
