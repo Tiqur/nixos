@@ -7,6 +7,7 @@
 
 {
   imports = [
+    inputs.nixvim.homeModules.nixvim
     inputs.home-manager.nixosModules.default
   ];
 
