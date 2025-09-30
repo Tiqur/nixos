@@ -38,7 +38,7 @@
         matugen = true;
         wallpaper = {
           enable = true;
-          image = "/home/tiqur/mysystem/wallpapers/mocha_tomoko.jpeg";
+          image = "/home/tiqur/mysystem/wallpapers/wave.png";
         };
       };
 
