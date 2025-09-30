@@ -30,6 +30,58 @@
     flavor = "macchiato";
   };
 
+  programs.hyprpanel = {
+    enable = true;
+    settings = {
+
+      theme = {
+        matugen = true;
+        wallpaper = {
+          enable = true;
+          image = "/home/tiqur/mysystem/wallpapers/mocha_tomoko.jpeg";
+        };
+      };
+
+      layout = {
+        bar.layouts = {
+          "0" = {
+            left = [
+              "dashboard"
+              "workspaces"
+            ];
+            middle = [ "media" ];
+            right = [
+              "volume"
+              "systray"
+              "notifications"
+            ];
+          };
+        };
+      };
+
+      bar.launcher.autoDetectIcon = true;
+      bar.workspaces.show_icons = true;
+
+      menus.clock = {
+        time = {
+          military = true;
+          hideSeconds = true;
+        };
+        weather.unit = "metric";
+      };
+
+      menus.dashboard.directories.enabled = false;
+      menus.dashboard.stats.enable_gpu = true;
+
+      theme.bar.transparent = true;
+
+      theme.font = {
+        name = "CaskaydiaCove NF";
+        size = "16px";
+      };
+    };
+  };
+
   programs.nixvim = {
     enable = true;
 
@@ -283,7 +335,7 @@
   #};
 
   programs.waybar = {
-    enable = true;
+    enable = false;
     systemd = {
       enable = false;
       target = "graphical-session.target";
@@ -1124,7 +1176,7 @@
   };
 
   services.hyprpaper = {
-    enable = true;
+    enable = false;
     settings = {
       ipc = "on";
       splash = false;
@@ -1329,7 +1381,7 @@
 
       env = [ ];
       exec-once = [
-        "${pkgs.waybar}/bin/waybar"
+        #"${pkgs.waybar}/bin/waybar"
         #"${pkgs.waybar}/bin/eww"
       ];
     };

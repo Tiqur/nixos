@@ -84,48 +84,51 @@
     pulse.enable = true;
     jack.enable = true;
     audio.enable = true;
-    #extraConfig.pipewire.adjust-sample-rate = {
-    #  "context.properties" = {
-    #    "default.clock.rate" = 192000;
-    #    "default.allowed-rates" = [
-    #      44100
-    #      48000
-    #      192000
-    #    ];
-    #  };
-    #};
 
-    extraConfig.pipewire."99-deepfilter-mono-source" = {
-      "context.modules" = [
-        {
-          "name" = "libpipewire-module-filter-chain";
-          "args" = {
-            "filter.graph" = {
-              "nodes" = [
-                {
-                  "type" = "ladspa";
-                  "name" = "DeepFilter Mono";
-                  "plugin" = "${pkgs.deepfilternet}/lib/ladspa/libdeep_filter_ladspa.so";
-                  "label" = "deep_filter_mono";
-                  "control" = {
-                    "Attenuation Limit (dB)" = 100;
-                  };
-                }
-              ];
+    extraConfig = {
+      pipewire."99-deepfilter-mono-source" = {
+        "context.modules" = [
+          {
+            "name" = "libpipewire-module-filter-chain";
+            "args" = {
+              "filter.graph" = {
+                "nodes" = [
+                  {
+                    "type" = "ladspa";
+                    "name" = "DeepFilter Mono";
+                    "plugin" = "${pkgs.deepfilternet}/lib/ladspa/libdeep_filter_ladspa.so";
+                    "label" = "deep_filter_mono";
+                    "control" = {
+                      "Attenuation Limit (dB)" = 100;
+                    };
+                  }
+                ];
+              };
+              "audio.position" = [ "MONO" ];
+              "audio.rate" = "48000";
+              "capture.props" = {
+                "node.passive" = true;
+              };
+              "playback.props" = {
+                "media.class" = "Audio/Source";
+              };
             };
-            "audio.position" = [ "MONO" ];
-            "audio.rate" = "48000";
-            "capture.props" = {
-              "node.passive" = true;
-            };
-            "playback.props" = {
-              "media.class" = "Audio/Source";
-            };
-          };
-        }
-      ];
+          }
+        ];
+      };
+
+      pipewire.adjust-sample-rate = {
+        "context.properties" = {
+          "default.clock.rate" = 192000;
+          "default.allowed-rates" = [
+            44100
+            48000
+            192000
+          ];
+        };
+      };
+
     };
-
   };
 
   users.users.tiqur = {
@@ -179,6 +182,7 @@
 
   fonts.packages = [
     pkgs.nerd-fonts._0xproto
+    pkgs.nerd-fonts.caskaydia-cove
     pkgs.nerd-fonts.droid-sans-mono
   ];
 
