@@ -1191,21 +1191,19 @@
   };
 
   services.hyprpaper = {
-    enable = false;
+    enable = true;
     settings = {
       ipc = "on";
       splash = false;
       splash_offset = 2.0;
 
-      preload = [ "/home/tiqur/mysystem/wallpapers/kurzgesagt.jxl" ];
+      preload = [ "/home/tiqur/mysystem/wallpapers/wave.png" ];
 
       wallpaper = [
-        "DP-2,/home/tiqur/mysystem/wallpapers/kurzgesagt.jxl"
-        "DP-1,/home/tiqur/mysystem/wallpapers/kurzgesagt.jxl"
+        ",/home/tiqur/mysystem/wallpapers/wave.png"
       ];
     };
   };
-
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
