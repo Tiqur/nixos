@@ -10,6 +10,12 @@
   home.homeDirectory = "/home/tiqur";
   home.stateVersion = "24.11";
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
+
   #systemd.user.services.noisetorch = {
   #  after = [ "default.target" ];
   #  wantedBy = [ "default.target" ];
@@ -28,6 +34,15 @@
     enable = true;
     accent = "red";
     flavor = "macchiato";
+  };
+
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      vscodevim.vim
+      yzhang.markdown-all-in-one
+      continue.continue
+    ];
   };
 
   programs.hyprpanel = {
@@ -194,7 +209,7 @@
   };
 
   #programs.neovim = {
-  #  enable = true;
+  #  enable = false;
   #  defaultEditor = true;
   #  extraConfig = ''
   #    " Clipboard
@@ -1194,7 +1209,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-    plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
+    #plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
 
     settings = {
       "$terminal" = "alacritty";

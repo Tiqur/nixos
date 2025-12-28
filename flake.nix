@@ -14,7 +14,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
+      url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -63,9 +63,6 @@
           ./hosts/desktop/configuration.nix
           ./hosts/desktop/hardware-configuration.nix
           ./hosts/shared.nix
-          ({
-            nixpkgs.overlays = [ (import ./overlays/update-osu-lazer.nix) ];
-          })
         ];
       };
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
