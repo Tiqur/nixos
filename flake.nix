@@ -7,6 +7,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
+    #niri.url = "github:sodiboo/niri-flake";
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -54,6 +55,7 @@
       nix-minecraft,
       nixvim,
       catppuccin,
+      #niri,
       ...
     }@inputs:
     {

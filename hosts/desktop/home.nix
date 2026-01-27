@@ -16,6 +16,17 @@
     };
   };
 
+  services.mpd = {
+    enable = true;
+    musicDirectory = "${config.home.homeDirectory}/Music";
+    extraConfig = ''
+      audio_output {
+        type "pipewire"
+        name "PipeWire Output"
+      }
+    '';
+  };
+
   #systemd.user.services.noisetorch = {
   #  after = [ "default.target" ];
   #  wantedBy = [ "default.target" ];
@@ -30,11 +41,136 @@
   #  #};
   #};
 
-  catppuccin = {
-    enable = true;
-    accent = "red";
-    flavor = "macchiato";
-  };
+  #catppuccin = {
+  #  enable = true;
+  #  accent = "red";
+  #  flavor = "macchiato";
+  #};
+
+  #  programs.niri = {
+  #    enable = false;
+  #
+  #    package = inputs.niri.packages.${pkgs.system}.niri-stable.overrideAttrs (old: {
+  #      doCheck = false;
+  #    });
+  #
+  #    settings = {
+  #        prefer-no-csd = true;
+  #
+  #        spawn-at-startup = [
+  #            { command = [ "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri" ]; }
+  #            { command = [ "swaybg" "-c" "#000000" ]; }
+  #            #{ command = [ "waybar" ]; }
+  #            #{ command = [ "sh" "-c"
+  #            #"${pkgs.swayidle}/bin/swayidle -w timeout 10 '${pkgs.wl-gammactl}/bin/wl-gammactl -b 0.5' resume '${pkgs.wl-gammactl}/bin/wl-gammactl -b 1.0' timeout 15 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' before-sleep 'niri msg action power-off-monitors'"
+  #            #]; }
+  #        ];
+  #
+  #        outputs."DP-3" = {
+  #          # Set resolution and refresh rate
+  #          mode = {
+  #            width = 3840;
+  #            height = 2160;
+  #            refresh = 240.0;
+  #          };
+  #
+  #          # Position and Scale
+  #          position = { x = 0; y = 0; };
+  #          scale = 1.0;
+  #        };
+  #
+  #        # Equivalent to Hyprland's force_zero_scaling
+  #        environment = {
+  #          DISPLAY = ":0";
+  #        };
+  #
+  #        #outputs."eDP-1" = {
+  #        #  scale = 1.0;
+  #        #  mode = "1920x1080@60.000";
+  #        #};
+  #
+  #        input = {
+  #          mouse.accel-profile = "flat";
+  #        };
+  #
+  #        layout = {
+  #            gaps = 16;
+  #            center-focused-column = "never";
+  #
+  #            focus-ring = {
+  #              enable = true;
+  #              width = 2;
+  #              active.color = "#2F253E";
+  #              inactive.color = "#44475a";
+  #          };
+  #        };
+  #
+  #binds = {
+  #  "Mod+Return".action.spawn = "alacritty";
+  #  "Mod+D".action.spawn = "fuzzel";
+  #  "Mod+B".action.spawn = [ "pkill" "-SIGUSR1" "waybar" ];
+  #
+  #  # --- System & Meta ---
+  #  "Mod+Slash".action.show-hotkey-overlay = { };
+  #  "Mod+Shift+E".action.quit = { };
+  #  "Mod+Shift+P".action.power-off-monitors = { };
+  #
+  #  # --- Window Management ---
+  #  # FIX: 'close-focused-window' -> 'close-window'
+  #  "Mod+Shift+Q".action.close-window = { };
+  #
+  #  "Mod+R".action.switch-preset-column-width = { };
+  #  "Mod+F".action.maximize-column = { };
+  #  "Mod+Shift+F".action.fullscreen-window = { };
+  #  "Mod+C".action.center-column = { };
+  #
+  #  # --- Floating & Focus (v0.1.10+) ---
+  #  "Mod+Shift+Z".action.switch-focus-between-floating-and-tiling = { };
+  #
+  #  # --- Columns & Stacking ---
+  #  # These consume/expel actions are standard. If they fail, your Niri version is very old.
+  #  "Mod+Comma".action.consume-window-into-column = { };
+  #  "Mod+Period".action.expel-window-from-column = { };
+  #
+  #  # --- Navigation ---
+  #  "Mod+H".action.focus-column-left = { };
+  #  "Mod+J".action.focus-window-down = { };
+  #  "Mod+K".action.focus-window-up = { };
+  #  "Mod+L".action.focus-column-right = { };
+  #
+  #  "Mod+Shift+H".action.move-column-left = { };
+  #  "Mod+Shift+J".action.move-window-down = { };
+  #  "Mod+Shift+K".action.move-window-up = { };
+  #  "Mod+Shift+L".action.move-column-right = { };
+  #
+  #  # --- Zoom & Overview (Expo) ---
+  #  # FIX: 'toggle-column-expander' -> 'toggle-overview' (The "Zoom Out" feature)
+  #  "Mod+Tab".action.toggle-overview = { };
+  #
+  #  # --- Workspaces ---
+  #  "Mod+1".action.focus-workspace = 1;
+  #  "Mod+2".action.focus-workspace = 2;
+  #  "Mod+3".action.focus-workspace = 3;
+  #  "Mod+4".action.focus-workspace = 4;
+  #  "Mod+5".action.focus-workspace = 5;
+  #  "Mod+6".action.focus-workspace = 6;
+  #  "Mod+7".action.focus-workspace = 7;
+  #  "Mod+8".action.focus-workspace = 8;
+  #  "Mod+9".action.focus-workspace = 9;
+  #
+  #  "Mod+Shift+1".action.move-column-to-workspace = 1;
+  #  "Mod+Shift+2".action.move-column-to-workspace = 2;
+  #  "Mod+Shift+3".action.move-column-to-workspace = 3;
+  #  "Mod+Shift+4".action.move-column-to-workspace = 4;
+  #  "Mod+Shift+5".action.move-column-to-workspace = 5;
+  #  "Mod+Shift+6".action.move-column-to-workspace = 6;
+  #  "Mod+Shift+7".action.move-column-to-workspace = 7;
+  #  "Mod+Shift+8".action.move-column-to-workspace = 8;
+  #  "Mod+Shift+9".action.move-column-to-workspace = 9;
+  #};
+  #
+  #};
+  #  };
 
   programs.vscode = {
     enable = true;
@@ -45,57 +181,57 @@
     ];
   };
 
-  programs.hyprpanel = {
-    enable = true;
-    settings = {
+  #programs.hyprpanel = {
+  #  enable = true;
+  #  settings = {
 
-      theme = {
-        matugen = true;
-        wallpaper = {
-          enable = true;
-          image = "/home/tiqur/mysystem/wallpapers/wave.png";
-        };
-      };
+  #    theme = {
+  #      matugen = true;
+  #      wallpaper = {
+  #        enable = true;
+  #        image = "/home/tiqur/mysystem/wallpapers/wave.png";
+  #      };
+  #    };
 
-      layout = {
-        bar.layouts = {
-          "0" = {
-            left = [
-              "dashboard"
-              "workspaces"
-            ];
-            middle = [ "media" ];
-            right = [
-              "volume"
-              "systray"
-              "notifications"
-            ];
-          };
-        };
-      };
+  #    layout = {
+  #      bar.layouts = {
+  #        "0" = {
+  #          left = [
+  #            "dashboard"
+  #            "workspaces"
+  #          ];
+  #          middle = [ "media" ];
+  #          right = [
+  #            "volume"
+  #            "systray"
+  #            "notifications"
+  #          ];
+  #        };
+  #      };
+  #    };
 
-      bar.launcher.autoDetectIcon = true;
-      bar.workspaces.show_icons = true;
+  #    bar.launcher.autoDetectIcon = true;
+  #    bar.workspaces.show_icons = true;
 
-      menus.clock = {
-        time = {
-          military = true;
-          hideSeconds = true;
-        };
-        weather.unit = "metric";
-      };
+  #    menus.clock = {
+  #      time = {
+  #        military = true;
+  #        hideSeconds = true;
+  #      };
+  #      weather.unit = "metric";
+  #    };
 
-      menus.dashboard.directories.enabled = false;
-      menus.dashboard.stats.enable_gpu = true;
+  #    menus.dashboard.directories.enabled = false;
+  #    menus.dashboard.stats.enable_gpu = true;
 
-      theme.bar.transparent = true;
+  #    theme.bar.transparent = true;
 
-      theme.font = {
-        name = "CaskaydiaCove NF";
-        size = "16px";
-      };
-    };
-  };
+  #    theme.font = {
+  #      name = "CaskaydiaCove NF";
+  #      size = "16px";
+  #    };
+  #  };
+  #};
 
   programs.nixvim = {
     enable = true;
@@ -294,7 +430,7 @@
       settings = {
       };
       # https://cascadefox.github.io/
-      userChrome = '''';
+      userChrome = "";
       extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
         ublock-origin
         bitwarden
@@ -359,7 +495,7 @@
       {
         layer = "top";
         position = "top";
-        mode = "dock"; # Fixes fullscreen issues
+        mode = "hide";
         height = 32; # 35
         exclusive = true;
         passthrough = false;
@@ -370,6 +506,8 @@
         margin-left = 10;
         margin-right = 10;
         margin-bottom = 0;
+
+        "start-hidden" = true;
 
         modules-left = [
           "hyprland/workspaces"
@@ -1095,6 +1233,7 @@
     settings = {
       window = {
         title = "Terminal";
+        decorations = "None";
         padding = {
           y = 16;
           x = 16;
@@ -1115,77 +1254,33 @@
 
       colors = {
         primary = {
-          background = "#1e1e2e";
-          foreground = "#cdd6f4";
-          dim_foreground = "#7f849c";
-          bright_foreground = "#cdd6f4";
+          background = "#000000"; # Pure Black override
+          foreground = "#f8f8f2";
         };
-        cursor = {
-          text = "#1e1e2e";
-          cursor = "#f5e0dc";
-        };
-        vi_mode_cursor = {
-          text = "#1e1e2e";
-          cursor = "#b4befe";
-        };
-        selection = {
-          text = "#1e1e2e";
-          background = "#f5e0dc";
-        };
-        search = {
-          matches = {
-            foreground = "#1e1e2e";
-            background = "#a6adc8";
-          };
-          focused_match = {
-            foreground = "#1e1e2e";
-            background = "#a6e3a1";
-          };
-        };
-        footer_bar = {
-          foreground = "#1e1e2e";
-          background = "#a6adc8";
-        };
-        hints = {
-          start = {
-            foreground = "#1e1e2e";
-            background = "#f9e2af";
-          };
-          end = {
-            foreground = "#1e1e2e";
-            background = "#a6adc8";
-          };
-        };
+
+        # Dracula uses the same colors for normal and bright usually,
+        # or slightly tweaked. This is the standard palette.
         normal = {
-          black = "#45475a";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#bac2de";
+          black = "#21222c";
+          red = "#ff5555";
+          green = "#50fa7b";
+          yellow = "#f1fa8c";
+          blue = "#bd93f9";
+          magenta = "#ff79c6";
+          cyan = "#8be9fd";
+          white = "#f8f8f2";
         };
+
         bright = {
-          black = "#585b70";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#a6adc8";
+          black = "#6272a4";
+          red = "#ff6e6e";
+          green = "#69ff94";
+          yellow = "#ffffa5";
+          blue = "#d6acff";
+          magenta = "#ff92df";
+          cyan = "#a4ffff";
+          white = "#ffffff";
         };
-        indexed_colors = [
-          {
-            index = 16;
-            color = "#fab387";
-          }
-          {
-            index = 17;
-            color = "#f5e0dc";
-          }
-        ];
       };
     };
   };
@@ -1213,8 +1308,13 @@
       "$terminal" = "alacritty";
       "$mod" = "SUPER";
 
-      #monitor = "DP-1, 3440@1440@144, 0x0, 1";
-      monitor = "DP-2, 2560x1440@240, 0x0, 1";
+      #monitor = "DP-2, 2560x1440@240, 0x0, 1";
+      monitor = "DP-3, 3840x2160@240, 0x0, 1";
+      #monitor = "DP-3, 3840x2160@240, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.2, sdrsaturation, 1.1";
+
+      render = {
+        direct_scanout = false;
+      };
 
       xwayland = {
         force_zero_scaling = true;
@@ -1242,8 +1342,8 @@
 
       decoration = {
         rounding = 8;
-        active_opacity = 0.8;
-        inactive_opacity = 0.7;
+        active_opacity = 1.0;
+        inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
 
         blur = {
@@ -1318,6 +1418,8 @@
       };
 
       bind = [
+        "$mod SHIFT, b, exec, ${pkgs.writeShellScript "hdr-toggle" (builtins.readFile ./hdr-toggle.sh)}"
+
         # General
         "$mod, return, exec, $terminal -e fish -c \"fastfetch; exec fish\""
         "$mod SHIFT, q, killactive"
@@ -1394,6 +1496,7 @@
 
       env = [ ];
       exec-once = [
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         #"${pkgs.waybar}/bin/waybar"
         #"${pkgs.waybar}/bin/eww"
       ];
@@ -1401,9 +1504,29 @@
 
   };
 
+  programs.mpv = {
+    enable = true;
+    config = {
+      # 'gpu-next' is required for HDR parsing
+      vo = "gpu-next";
+
+      # Vulkan is the required API for AMD HDR on Wayland
+      gpu-api = "vulkan";
+      gpu-context = "waylandvk";
+
+      # This sends the HDR metadata to Hyprland
+      target-colorspace-hint = true;
+
+      # Optional: Hardware decoding
+      hwdec = "auto-safe";
+    };
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.swaybg
+    pkgs.jq
     inputs.zen-browser.packages."${pkgs.system}".twilight
   ];
 

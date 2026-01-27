@@ -8,6 +8,7 @@
 │   ├── desktop
 │   │   ├── configuration.nix
 │   │   ├── hardware-configuration.nix
+│   │   ├── hdr-toggle.sh
 │   │   └── home.nix
 │   ├── laptop
 │   │   ├── configuration.nix
@@ -54,5 +55,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 46 files
+7 directories, 47 files
 ```

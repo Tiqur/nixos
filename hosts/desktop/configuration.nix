@@ -40,6 +40,41 @@
     ];
   };
 
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-rocm;
+  };
+
+  # I
+  # The Ollama environment variables, as mentioned in the comments section
+  systemd.services.ollama.serviceConfig = {
+    Environment = [ "OLLAMA_HOST=0.0.0.0:11434" ];
+  };
+
+  services.open-webui = {
+    enable = true;
+    environment = {
+      ANONYMIZED_TELEMETRY = "False";
+      DO_NOT_TRACK = "True";
+      SCARF_NO_ANALYTICS = "True";
+      OLLAMA_API_BASE_URL = "http://127.0.0.1:11434/api";
+      OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+      WEBUI_AUTH = "False";
+    };
+  };
+
+  environment.interactiveShellInit = ''
+    dr() {
+       while ! aria2c -x 1 -s 1 --connect-timeout=30 --retry-wait=1 --max-tries=0 \
+         --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+         --referer="https://kemono.su/" -c "$1"; do
+           RND=$(( ( RANDOM % 5 ) + 1 ))
+           echo "Server is cooked. Retrying in $RND seconds..."
+           sleep $RND
+       done
+     }
+  '';
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -57,7 +92,17 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.theme = "where_is_my_sddm_theme";
+  services.desktopManager.plasma6.enable = true;
   #programs.hyprlock.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config.common.default = [ "hyprland" ];
+  };
 
   #services.xserver.displayManager.autoLogin.enable = true;
   #services.xserver.displayManager.autoLogin.user = "tiqur";
@@ -157,6 +202,7 @@
       kitty
       home-manager
       mpv
+      gamescope-wsi
       wl-clipboard
       feh
       prismlauncher
@@ -166,6 +212,11 @@
 
   programs.firefox.enable = true;
 
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
+
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users.tiqur = {
@@ -173,6 +224,7 @@
         ./home.nix
         inputs.nixvim.homeModules.nixvim
         inputs.catppuccin.homeModules.catppuccin
+        #inputs.niri.homeModules.niri
       ];
     };
   };
@@ -185,13 +237,39 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    #substituters = [ "https://niri.cachix.org" ];
+    #trusted-public-keys = [ "niri.cachix.org-1:Wv0Om60S7qS6SGMGCf6hY6+E3+FMA6JpS1A9E3kID6o=" ];
+  };
 
   environment.systemPackages = with pkgs; [
+    #kdePackages.kwin-vk-hdr-layer
+    libnotify
     steam
+    oterm
+
+    aria2
+    (writeScriptBin "dr" ''
+      #!/usr/bin/env bash
+      URL="$1"
+      if [ -z "$URL" ]; then
+        echo "Usage: dr <url>"
+        exit 1
+      fi
+
+      while ! aria2c -x 1 -s 1 --connect-timeout=30 --retry-wait=1 --max-tries=0 \
+        --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+        -c "$URL"; do
+          RND=$(( ( RANDOM % 5 ) + 1 ))
+          echo "Server is cooked. Retrying in $RND seconds..."
+          sleep $RND
+      done
+    '')
   ];
 
   # List services that you want to enable:
