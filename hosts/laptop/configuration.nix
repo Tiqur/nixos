@@ -108,7 +108,6 @@
       swappy
       grim
       waybar
-      kitty
       home-manager
     ];
   };

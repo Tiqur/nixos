@@ -1527,6 +1527,8 @@
   home.packages = [
     pkgs.swaybg
     pkgs.jq
+    pkgs.networkmanager_dmenu
+
     inputs.zen-browser.packages."${pkgs.system}".twilight
   ];
 
