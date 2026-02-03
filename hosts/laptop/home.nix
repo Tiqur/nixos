@@ -48,7 +48,7 @@
   };
 
   programs.nixvim = {
-    enable = true;
+    enable = false;
 
     opts = {
       clipboard = "unnamedplus";
@@ -411,27 +411,6 @@
         };
       };
     };
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-        user = "greeter";
-      };
-    };
-  };
-
-  # This ensures the log text doesn't mess up the TUI
-  systemd.services.greetd.serviceConfig = {
-    Type = "idle";
-    StandardInput = "tty";
-    StandardOutput = "tty";
-    StandardError = "journal"; # Without this errors will spam on screen
-    TTYReset = true;
-    TTYVHangup = true;
-    TTYVTDisallocate = true;
   };
 
   services.hyprpaper = {
