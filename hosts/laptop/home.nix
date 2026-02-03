@@ -650,6 +650,8 @@
   # environment.
   home.packages = [
     inputs.zen-browser.packages."${pkgs.system}".twilight
+    pkgs.networkmanager_dmenu
+
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
