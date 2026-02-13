@@ -19,6 +19,7 @@
 │   ├── server
 │   │   ├── configuration.nix
 │   │   ├── hardware-configuration.nix
+│   │   ├── matrix.nix
 │   │   ├── old.nix
 │   │   └── secrets
 │   │       └── secrets.yaml
@@ -26,6 +27,7 @@
 ├── nix.conf
 ├── README.md
 ├── rebuild.sh
+├── result -> /nix/store/qfvxdr7zpkh2hnkkxj1ppky2fc7zmg6j-nixos-system-rikka-26.05.20260116.e4bae1b
 └── wallpapers
     ├── angel.jpg
     ├── basement.jxl
@@ -55,5 +57,5 @@
     ├── wave_dark.png
     └── wave.png
 
-7 directories, 47 files
+8 directories, 48 files
 ```

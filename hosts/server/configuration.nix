@@ -11,6 +11,7 @@
     inputs.sops-nix.nixosModules.sops
     inputs.nix-minecraft.nixosModules.minecraft-servers
     ./hardware-configuration.nix
+    ./matrix.nix
   ];
 
   # Ensure directory exists
@@ -27,6 +28,18 @@
   #sops.secrets."borg-user" = { };
   #sops.secrets."borg-host" = { };
   #sops.secrets."borg-passphrase" = { };
+
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      libva-vdpau-driver # Replaces vaapiVdpau
+      libvdpau-va-gl
+      rocmPackages.clr
+    ];
+  };
 
   # Consider automatic upgrades (for security)
 
@@ -55,12 +68,12 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.adguardhome = {
-    enable = true;
-    host = "0.0.0.0";
-    port = 3000;
-    openFirewall = true;
-  };
+  #services.adguardhome = {
+  #  enable = true;
+  #  host = "0.0.0.0";
+  #  port = 3000;
+  #  openFirewall = true;
+  #};
 
   services.minecraft-servers = {
     enable = true;
